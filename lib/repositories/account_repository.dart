@@ -7,7 +7,7 @@ class AccountRepository {
   final Database db;
   AccountRepository(this.db);
 
-  // Login account
+  // Login with mobile number and PIN
   Future<AccountModel?> login(String mobileNumber, String pin) async {
     final pinHash = hashValue(pin);
     final result = await db.query(
@@ -21,7 +21,7 @@ class AccountRepository {
     return AccountModel.fromMap(result.first);
   }
 
-  // Register account
+  // Register new account
   Future<AccountModel> register({
     required String associationName,
     required String mobileNumber,
