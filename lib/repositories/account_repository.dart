@@ -47,4 +47,22 @@ class AccountRepository {
 
     return AccountModel.fromMap(result.first);
   }
+
+  // Reset PIN
+  Future<bool> resetPin({
+    required String mobileNumber,
+    required String newPin,
+  }) async {
+    final pinHash = hashValue(newPin);
+    final now = DateHelper.now();
+
+    final updated = await db.update(
+      'accounts',
+      {'pin': pinHash, 'updated_at': now},
+      where: 'mobile_number = ?',
+      whereArgs: [mobileNumber],
+    );
+
+    return updated > 0;
+  }
 }
