@@ -6,6 +6,7 @@ class AccountRepository {
   final Database db;
   AccountRepository(this.db);
 
+  // Login account
   Future<AccountModel?> login(String mobileNumber, String pin) async {
     final pinHash = hashValue(pin);
     final result = await db.query(
@@ -16,6 +17,33 @@ class AccountRepository {
     );
 
     if (result.isEmpty) return null;
+    return AccountModel.fromMap(result.first);
+  }
+
+  // Register account
+  Future<AccountModel> register({
+    required String associationName,
+    required String mobileNumber,
+    required String pin,
+  }) async {
+    final pinHash = hashValue(pin);
+    final now = DateTime.now().toIso8601String();
+
+    final id = await db.insert('accounts', {
+      'association_name': associationName,
+      'mobile_number': mobileNumber,
+      'pin': pinHash,
+      'created_at': now,
+      'updated_at': now,
+    });
+
+    final result = await db.query(
+      'accounts',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+
     return AccountModel.fromMap(result.first);
   }
 }
