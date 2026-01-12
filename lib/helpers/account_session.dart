@@ -16,7 +16,7 @@ class AccountSession {
   }
 
   // Clear saved account ID
-  static Future<void> clear() async {
+  static Future<void> clearAccountId() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_accountIdKey);
   }
