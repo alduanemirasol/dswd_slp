@@ -1,4 +1,5 @@
 import 'package:sqflite/sqflite.dart';
+import '../helpers/date_helper.dart';
 import '../helpers/hash_helper.dart';
 import '../models/account_model.dart';
 
@@ -27,7 +28,7 @@ class AccountRepository {
     required String pin,
   }) async {
     final pinHash = hashValue(pin);
-    final now = DateTime.now().toIso8601String();
+    final now = DateHelper.now();
 
     final id = await db.insert('accounts', {
       'association_name': associationName,
