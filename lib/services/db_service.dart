@@ -20,6 +20,13 @@ class DBService {
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
+  Database get databaseInstance {
+    if (_database == null) {
+      throw Exception('Database is not initialized yet');
+    }
+    return _database!;
+  }
+
   Future<void> _onCreate(Database db, int version) async {
     // Accounts
     await db.execute('''

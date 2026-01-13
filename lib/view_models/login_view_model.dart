@@ -1,45 +1,67 @@
 import 'package:flutter/material.dart';
-import '../models/account_model.dart';
 import '../repositories/account_repository.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  final AccountRepository accountRepository;
-  LoginViewModel(this.accountRepository);
+  final AccountRepository _accountRepository;
 
-  AccountModel? _account;
-  AccountModel? get account => _account;
+  LoginViewModel({required AccountRepository accountRepository})
+    : _accountRepository = accountRepository;
 
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
+  // Current PIN input
+  String _pin = '';
 
-  String? _error;
-  String? get error => _error;
+  // Expose PIN length for UI
+  int get pinLength => _pin.length;
 
-  Future<void> login(String mobileNumber, String pin) async {
-    _isLoading = true;
-    _error = null;
-    notifyListeners();
+  // Error message for login failure
+  String? errorMessage;
 
-    try {
-      final result = await accountRepository.login(mobileNumber, pin);
-
-      if (result != null) {
-        _account = result;
-      } else {
-        _error = 'Invalid mobile number or PIN';
-      }
-    } catch (e) {
-      _error = 'An unexpected error occurred';
-    } finally {
-      _isLoading = false;
+  /// Add a digit to the PIN
+  void addDigit(String digit) {
+    if (_pin.length < 4) {
+      _pin += digit;
       notifyListeners();
     }
   }
 
-  void clear() {
-    _account = null;
-    _error = null;
-    _isLoading = false;
+  /// Remove the last digit from the PIN
+  void removeDigit() {
+    if (_pin.isNotEmpty) {
+      _pin = _pin.substring(0, _pin.length - 1);
+      notifyListeners();
+    }
+  }
+
+  /// Clear the PIN input
+  void clearPin() {
+    _pin = '';
     notifyListeners();
+  }
+
+  /// Clear the error message
+  void resetError() {
+    errorMessage = null;
+    notifyListeners();
+  }
+
+  /// Attempt to login with the provided mobile number
+  Future<bool> login(String mobileNumber) async {
+    resetError();
+
+    try {
+      final account = await _accountRepository.login(mobileNumber, _pin);
+      if (account == null) {
+        errorMessage = 'Invalid PIN';
+        notifyListeners();
+        return false;
+      }
+      return true;
+    } catch (e) {
+      errorMessage = 'Login failed: ${e.toString()}';
+      notifyListeners();
+      return false;
+    } finally {
+      clearPin();
+    }
   }
 }
