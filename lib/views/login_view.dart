@@ -203,10 +203,6 @@ class _LoginViewState extends State<LoginView>
                 label: "0",
                 onTap: () => _onKeyPressed(viewModel, "0"),
               ),
-              GestureDetector(
-                onTap: viewModel.removeDigit,
-                child: const Icon(Icons.backspace),
-              ),
             ],
           ),
         ],
