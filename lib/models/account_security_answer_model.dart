@@ -13,7 +13,7 @@ class AccountSecurityAnswer {
     required this.createdAt,
   });
 
-  // Convert DB row to model
+  // Convert DB to model
   factory AccountSecurityAnswer.fromMap(Map<String, dynamic> map) {
     return AccountSecurityAnswer(
       id: map['id'],
@@ -24,7 +24,7 @@ class AccountSecurityAnswer {
     );
   }
 
-  // Convert model to DB row
+  // Convert model to DB
   Map<String, dynamic> toMap() {
     return {
       'account_id': accountId,

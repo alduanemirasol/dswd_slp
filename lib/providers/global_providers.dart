@@ -1,11 +1,11 @@
-import 'package:provider/provider.dart';
 import '../repositories/account_repository.dart';
 import '../services/db_service.dart';
 
-List<Provider> globalProviders() {
-  return [
-    Provider<AccountRepository>(
-      create: (_) => AccountRepository(DBService().databaseInstance),
-    ),
-  ];
+class GlobalProviders {
+  static late final AccountRepository accountRepository;
+
+  static Future<void> init() async {
+    final db = await DBService().database;
+    accountRepository = AccountRepository(db);
+  }
 }

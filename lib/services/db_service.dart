@@ -17,14 +17,9 @@ class DBService {
   Future<Database> _initDatabase() async {
     final directory = await getApplicationDocumentsDirectory();
     final path = join(directory.path, 'app_data.db');
-    return await openDatabase(path, version: 1, onCreate: _onCreate);
-  }
-
-  Database get databaseInstance {
-    if (_database == null) {
-      throw Exception('Database is not initialized yet');
-    }
-    return _database!;
+    final db = await openDatabase(path, version: 1, onCreate: _onCreate);
+    await db.execute('PRAGMA foreign_keys = ON');
+    return db;
   }
 
   Future<void> _onCreate(Database db, int version) async {
