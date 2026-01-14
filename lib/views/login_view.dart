@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../core/colors.dart';
+import '../providers/global_providers.dart';
 import '../view_models/login_view_model.dart';
-import '../repositories/account_repository.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -49,7 +49,7 @@ class _LoginViewState extends State<LoginView>
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<LoginViewModel>(
       create: (_) =>
-          LoginViewModel(accountRepository: context.read<AccountRepository>()),
+          LoginViewModel(accountRepository: GlobalProviders.accountRepository),
       child: Consumer<LoginViewModel>(
         builder: (context, viewModel, _) {
           return Scaffold(
@@ -87,14 +87,6 @@ class _LoginViewState extends State<LoginView>
                   _buildPinIndicator(viewModel),
                   const SizedBox(height: 25),
                   Expanded(child: _buildKeypad(viewModel)),
-                  if (viewModel.errorMessage != null)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        viewModel.errorMessage!,
-                        style: const TextStyle(color: Colors.red),
-                      ),
-                    ),
                   _buildFooter(context),
                 ],
               ),
@@ -226,9 +218,7 @@ class _LoginViewState extends State<LoginView>
     viewModel.addDigit(key);
 
     if (viewModel.pinLength == 4) {
-      final success = await viewModel.login(
-        "Not set",
-      ); // replace with real mobile number
+      final success = await viewModel.login("Not set");
       if (!mounted) return;
 
       if (!success) {
