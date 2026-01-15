@@ -33,18 +33,24 @@ class DBService {
     await db.execute('PRAGMA foreign_keys = ON'); // enable foreign keys
   }
 
-  // Create tables
+  // Create all tables and populate initial lookup data
   Future<void> _onCreate(Database db, int version) async {
     await _createLookupTables(db);
-    await _seedLookupTables(db);
     await _createCoreTables(db);
     await _createRelationshipTables(db);
+    await _seedLookupTables(db);
   }
 
-  // Seed default lookup data
+  // Seed all lookup tables
   Future<void> _seedLookupTables(Database db) async {
-    // Product categories
-    const productCategories = [
+    await _seedSecurityQuestions(db);
+    await _seedProductCategories(db);
+    await _seedSaleTypes(db);
+  }
+
+  // Seed product categories
+  Future<void> _seedProductCategories(Database db) async {
+    const categories = [
       {'id': 1, 'text': 'Imnonon'},
       {'id': 2, 'text': 'Alak'},
       {'id': 3, 'text': 'Pagkaon'},
@@ -53,27 +59,34 @@ class DBService {
       {'id': 6, 'text': 'Gamit sa Eskwelahan'},
       {'id': 7, 'text': 'Uban Pa'},
     ];
-    for (var cat in productCategories) {
-      await db.insert('product_categories', cat);
+    for (var category in categories) {
+      await db.insert('product_categories', category);
     }
+  }
 
-    // Security questions
-    const securityQuestions = [
-      {'id': 1, 'text': 'What is your mother’s maiden name?'},
-      {'id': 2, 'text': 'What was your first pet’s name?'},
-      {'id': 3, 'text': 'What is your favorite color?'},
+  // Seed security questions
+  Future<void> _seedSecurityQuestions(Database db) async {
+    const List<Map<String, dynamic>> securityQuestions = [
+      {'id': 1, 'text': "Unsa imong unang negosyo?"},
+      {'id': 2, 'text': "Kinsay imong unang silingan?"},
+      {'id': 3, 'text': "Kinsay imong unang suod nga amigo/amiga?"},
+      {'id': 4, 'text': "Asa ka pirmi mamalit?"},
+      {'id': 5, 'text': "Unsa imong paboritong lugar?"},
+      {'id': 6, 'text': "Unsa kanunay nimo dala sa biyahe?"},
     ];
-    for (var q in securityQuestions) {
-      await db.insert('security_questions', q);
+    for (var question in securityQuestions) {
+      await db.insert('security_questions', question);
     }
+  }
 
-    // Sale types
-    const saleTypes = [
+  // Seed sale types
+  Future<void> _seedSaleTypes(Database db) async {
+    const types = [
       {'id': 1, 'name': 'Cash'},
       {'id': 2, 'name': 'Credit'},
     ];
-    for (var s in saleTypes) {
-      await db.insert('sale_types', s);
+    for (var type in types) {
+      await db.insert('sale_types', type);
     }
   }
 
