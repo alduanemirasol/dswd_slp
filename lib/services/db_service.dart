@@ -37,7 +37,8 @@ class DBService {
   // Create tables
   Future<void> _onCreate(Database db, int version) async {
     await _createLookupTables(db);
-    await _createMainTables(db);
+    await _seedLookupTables(db);
+    await _createCoreTables(db);
     await _createRelationshipTables(db);
   }
 
@@ -65,8 +66,45 @@ class DBService {
     ''');
   }
 
+  // Seed default lookup data
+  Future<void> _seedLookupTables(Database db) async {
+    // Product categories
+    const productCategories = [
+      {'id': 1, 'text': 'Imnonon'},
+      {'id': 2, 'text': 'Alak'},
+      {'id': 3, 'text': 'Pagkaon'},
+      {'id': 4, 'text': 'Panglimpyo'},
+      {'id': 5, 'text': 'Gamit sa Panimalay'},
+      {'id': 6, 'text': 'Gamit sa Eskwelahan'},
+      {'id': 7, 'text': 'Uban Pa'},
+    ];
+    for (var cat in productCategories) {
+      await db.insert('product_categories', cat);
+    }
+
+    // Security questions
+    const securityQuestions = [
+      {'id': 1, 'text': 'What is your mother’s maiden name?'},
+      {'id': 2, 'text': 'What was your first pet’s name?'},
+      {'id': 3, 'text': 'What is your favorite color?'},
+    ];
+    for (var q in securityQuestions) {
+      await db.insert('security_questions', q);
+    }
+
+    // Sale types
+    const saleTypes = [
+      {'id': 1, 'name': 'Cash'},
+      {'id': 2, 'name': 'Credit'},
+      {'id': 3, 'name': 'Online'},
+    ];
+    for (var s in saleTypes) {
+      await db.insert('sale_types', s);
+    }
+  }
+
   // Core tables
-  Future<void> _createMainTables(Database db) async {
+  Future<void> _createCoreTables(Database db) async {
     // Accounts
     await db.execute('''
       CREATE TABLE accounts (
