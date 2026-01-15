@@ -79,7 +79,7 @@ class DBService {
     }
   }
 
-  // Insert sale types
+  // Seed sale types
   Future<void> _seedSaleTypes(Database db) async {
     const types = [
       {'id': 1, 'name': 'Cash'},
