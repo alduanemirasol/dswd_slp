@@ -1,69 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../core/colors.dart';
-import '../views/home_view.dart';
-import '../views/history_view.dart';
-import '../views/settings_view.dart';
 
-class NavigationItem {
+class NavItem {
   final IconData icon;
   final String label;
-  final Widget page;
+  final String path;
 
-  NavigationItem({required this.icon, required this.label, required this.page});
+  const NavItem({required this.icon, required this.label, required this.path});
 }
 
-class ReusableBottomNavBar extends StatefulWidget {
-  const ReusableBottomNavBar({super.key});
+class BottomNavBar extends StatelessWidget {
+  final int currentIndex;
+  final Function(int)? onTap;
 
-  @override
-  State<ReusableBottomNavBar> createState() => _ReusableBottomNavBarState();
-}
+  const BottomNavBar({super.key, required this.currentIndex, this.onTap});
 
-class _ReusableBottomNavBarState extends State<ReusableBottomNavBar> {
-  int _currentIndex = 0;
-
-  final List<NavigationItem> _items = [
-    NavigationItem(icon: Icons.home, label: "Home", page: const HomeView()),
-    NavigationItem(
-      icon: Icons.history,
-      label: "History",
-      page: const HistoryView(),
-    ),
-    NavigationItem(
-      icon: Icons.settings,
-      label: "Settings",
-      page: const SettingsView(),
-    ),
+  // Only edit this list: icon, label, path
+  static const navInput = [
+    [Icons.home, 'Home', '/home'],
+    [Icons.history, 'History', '/history'],
+    [Icons.settings, 'Settings', '/settings'],
   ];
+
+  List<NavItem> get navItems => navInput
+      .map(
+        (item) => NavItem(
+          icon: item[0] as IconData,
+          label: item[1] as String,
+          path: item[2] as String,
+        ),
+      )
+      .toList();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _items[_currentIndex].page,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: Colors.grey,
-        items: _items
-            .map(
-              (item) => BottomNavigationBarItem(
-                icon: Icon(item.icon),
-                label: item.label,
-              ),
-            )
-            .toList(),
-      ),
+    final safeIndex = currentIndex.clamp(0, navItems.length - 1);
+
+    return BottomNavigationBar(
+      currentIndex: safeIndex,
+      onTap: (index) {
+        if (index == safeIndex) return;
+        onTap?.call(index);
+        context.go(navItems[index].path);
+      },
+      iconSize: 28,
+      selectedFontSize: 14,
+      unselectedFontSize: 12,
+      backgroundColor: Colors.white,
+      selectedItemColor: AppColors.primary,
+      unselectedItemColor: Colors.grey[600],
+      items: navItems
+          .map(
+            (item) => BottomNavigationBarItem(
+              icon: Icon(item.icon),
+              label: item.label,
+            ),
+          )
+          .toList(),
     );
   }
 }
-
-/*
-
-Usage example:
-
-MaterialApp(
-  home: ReusableBottomNavBar(),
-);
-
-*/
