@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: CustomHeader(title: 'Home'),
       body: const Center(child: Text("Home Page")),
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: const CustomBottomNavBar(),
     );
   }
 }

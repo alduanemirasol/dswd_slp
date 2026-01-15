@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
+import '../widgets/custom_header.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -7,8 +8,9 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      appBar: CustomHeader(title: 'Settings'),
       body: Center(child: Text("Settings Page")),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

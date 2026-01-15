@@ -10,14 +10,14 @@ const List<NavigationItem> navItems = [
   NavigationItem(icon: Icons.settings, label: 'Settings', route: '/settings'),
 ];
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+class CustomBottomNavBar extends StatefulWidget {
+  const CustomBottomNavBar({super.key});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
+  State<CustomBottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+class _BottomNavBarState extends State<CustomBottomNavBar> {
   // Build navigation bar items
   static final List<BottomNavigationBarItem> _navBarItems = navItems
       .map(
