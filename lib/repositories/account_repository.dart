@@ -7,7 +7,21 @@ class AccountRepository {
   final Database db;
   AccountRepository(this.db);
 
-  // Login with mobile number and PIN
+  // Get mobile number
+  Future<String?> getMobileNumber(int accountId) async {
+    final result = await db.query(
+      'accounts',
+      columns: ['mobile_number'],
+      where: 'id = ?',
+      whereArgs: [accountId],
+      limit: 1,
+    );
+
+    if (result.isEmpty) return null;
+    return result.first['mobile_number'] as String;
+  }
+
+  // Login
   Future<AccountModel?> login(String mobileNumber, String pin) async {
     final pinHash = hashValue(pin);
     final result = await db.query(

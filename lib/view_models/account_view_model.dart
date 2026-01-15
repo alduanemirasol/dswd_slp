@@ -1,26 +1,28 @@
-import 'package:dswd_slp_new/repositories/account_repository.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import '../helpers/account_session.dart';
+import '../repositories/account_repository.dart';
 
 class AccountViewModel extends ChangeNotifier {
-  int? _accountId;
-  int? get accountId => _accountId;
+  final AccountRepository accountRepository;
 
-  String? _mobileNumber;
+  int? accountId;
+  String? mobileNumber;
 
-  AccountViewModel(AccountRepository accountRepository);
-  String? get mobileNumber => _mobileNumber;
+  AccountViewModel(this.accountRepository);
 
-  void setAccount({required int id, required String mobile}) {
-    _accountId = id;
-    _mobileNumber = mobile;
+  // Initialize on app start
+  Future<void> initialize() async {
+    accountId = await AccountSession.getAccountId();
+    if (accountId != null) {
+      mobileNumber = await accountRepository.getMobileNumber(accountId!);
+    }
     notifyListeners();
   }
 
-  void clear() {
-    _accountId = null;
-    _mobileNumber = null;
+  // Optional: fetch manually anytime
+  Future<void> loadMobileNumber() async {
+    if (accountId == null) return;
+    mobileNumber = await accountRepository.getMobileNumber(accountId!);
     notifyListeners();
   }
-
-  bool get isLoggedIn => _accountId != null;
 }
