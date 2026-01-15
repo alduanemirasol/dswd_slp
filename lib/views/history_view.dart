@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../widgets/custom_bottom_nav_bar.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../widgets/header.dart';
+import '../widgets/custom_app_bar.dart';
 import '../core/colors.dart';
 
 class RegisterView extends StatelessWidget {
@@ -10,7 +10,10 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(245, 245, 245, 1),
-      appBar: const Header(title: "Bag-ong Account", showBackButton: true),
+      appBar: const CustomAppBar(
+        title: "Bag-ong Account",
+        showBackButton: true,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Header extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showBackButton;
   final VoidCallback? onBack;
 
-  const Header({
+  const CustomAppBar({
     super.key,
     required this.title,
     this.showBackButton = true,
