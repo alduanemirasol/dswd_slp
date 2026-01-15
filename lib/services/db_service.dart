@@ -96,7 +96,6 @@ class DBService {
     const saleTypes = [
       {'id': 1, 'name': 'Cash'},
       {'id': 2, 'name': 'Credit'},
-      {'id': 3, 'name': 'Online'},
     ];
     for (var s in saleTypes) {
       await db.insert('sale_types', s);
