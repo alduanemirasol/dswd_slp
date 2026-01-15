@@ -4,7 +4,7 @@ import 'router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GlobalProviders.init();
+  await GlobalProviders.initialize();
   runApp(const MyApp());
 }
 

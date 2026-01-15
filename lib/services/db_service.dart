@@ -8,7 +8,7 @@ class DBService {
   DBService._internal();
   static Database? _database;
 
-  // Get database instance
+  // Database instance
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDatabase();
@@ -38,18 +38,18 @@ class DBService {
     await _createLookupTables(db);
     await _createCoreTables(db);
     await _createRelationshipTables(db);
-    await _seedLookupTables(db);
+    await _insertLookupTables(db);
   }
 
-  // Seed all lookup tables
-  Future<void> _seedLookupTables(Database db) async {
-    await _seedSecurityQuestions(db);
-    await _seedProductCategories(db);
-    await _seedSaleTypes(db);
+  // Insert all lookup tables
+  Future<void> _insertLookupTables(Database db) async {
+    await _insertSecurityQuestions(db);
+    await _insertProductCategories(db);
+    await _insertSaleTypes(db);
   }
 
-  // Seed security questions
-  Future<void> _seedSecurityQuestions(Database db) async {
+  // Insert security questions
+  Future<void> _insertSecurityQuestions(Database db) async {
     const List<Map<String, dynamic>> securityQuestions = [
       {'id': 1, 'text': "Unsa imong unang negosyo?"},
       {'id': 2, 'text': "Kinsay imong unang silingan?"},
@@ -63,8 +63,8 @@ class DBService {
     }
   }
 
-  // Seed product categories
-  Future<void> _seedProductCategories(Database db) async {
+  // Insert product categories
+  Future<void> _insertProductCategories(Database db) async {
     const categories = [
       {'id': 1, 'text': 'Imnonon'},
       {'id': 2, 'text': 'Alak'},
@@ -79,8 +79,8 @@ class DBService {
     }
   }
 
-  // Seed sale types
-  Future<void> _seedSaleTypes(Database db) async {
+  // Insert sale types
+  Future<void> _insertSaleTypes(Database db) async {
     const types = [
       {'id': 1, 'name': 'Cash'},
       {'id': 2, 'name': 'Credit'},
@@ -92,6 +92,7 @@ class DBService {
 
   // Lookup tables
   Future<void> _createLookupTables(Database db) async {
+    // Security questions
     await db.execute('''
       CREATE TABLE security_questions (
         id INTEGER PRIMARY KEY,
@@ -99,6 +100,7 @@ class DBService {
       )
     ''');
 
+    // Product categories
     await db.execute('''
       CREATE TABLE product_categories (
         id INTEGER PRIMARY KEY,
@@ -106,6 +108,7 @@ class DBService {
       )
     ''');
 
+    // Sale types
     await db.execute('''
       CREATE TABLE sale_types (
         id INTEGER PRIMARY KEY,
