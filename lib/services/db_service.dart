@@ -41,15 +41,15 @@ class DBService {
     await _insertLookupTables(db);
   }
 
-  // Insert all lookup tables
+  // Seed all lookup tables
   Future<void> _insertLookupTables(Database db) async {
-    await _insertSecurityQuestions(db);
-    await _insertProductCategories(db);
-    await _insertSaleTypes(db);
+    await _seedSecurityQuestions(db);
+    await _seedProductCategories(db);
+    await _seedSaleTypes(db);
   }
 
-  // Insert security questions
-  Future<void> _insertSecurityQuestions(Database db) async {
+  // Seed security questions
+  Future<void> _seedSecurityQuestions(Database db) async {
     const List<Map<String, dynamic>> securityQuestions = [
       {'id': 1, 'text': "Unsa imong unang negosyo?"},
       {'id': 2, 'text': "Kinsay imong unang silingan?"},
@@ -63,8 +63,8 @@ class DBService {
     }
   }
 
-  // Insert product categories
-  Future<void> _insertProductCategories(Database db) async {
+  // Seed product categories
+  Future<void> _seedProductCategories(Database db) async {
     const categories = [
       {'id': 1, 'text': 'Imnonon'},
       {'id': 2, 'text': 'Alak'},
@@ -80,7 +80,7 @@ class DBService {
   }
 
   // Insert sale types
-  Future<void> _insertSaleTypes(Database db) async {
+  Future<void> _seedSaleTypes(Database db) async {
     const types = [
       {'id': 1, 'name': 'Cash'},
       {'id': 2, 'name': 'Credit'},
