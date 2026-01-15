@@ -1,66 +1,90 @@
 import 'package:flutter/material.dart';
-
 import '../core/colors.dart';
 
 class CategoryChipsWithDots extends StatelessWidget {
-  const CategoryChipsWithDots({super.key});
+  final List<String> categories;
+  final String selectedCategory;
+  final ValueChanged<String> onCategorySelected;
+
+  const CategoryChipsWithDots({
+    super.key,
+    required this.categories,
+    required this.selectedCategory,
+    required this.onCategorySelected,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Horizontal category chips
         SizedBox(
           height: 45,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            itemCount: 5,
+            itemCount: categories.length,
             separatorBuilder: (_, _) => const SizedBox(width: 8),
             itemBuilder: (_, index) {
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: AppColors.primary),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withAlpha(51),
-                      blurRadius: 2,
-                      offset: const Offset(0, 2),
+              final category = categories[index];
+              final isSelected = selectedCategory == category;
+
+              return GestureDetector(
+                onTap: () => onCategorySelected(category),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isSelected ? AppColors.primary : Colors.white,
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(
+                      color: isSelected
+                          ? AppColors.primary
+                          : Colors.grey.shade300,
                     ),
-                  ],
-                ),
-                child: const Text(
-                  'Category',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withAlpha(51),
+                        blurRadius: 2,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    category,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: isSelected ? Colors.white : Colors.black87,
+                    ),
                   ),
                 ),
               );
             },
           ),
         ),
+
         const SizedBox(height: 10),
+
+        // Dots indicator
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(5, (index) {
+          children: categories.map((category) {
+            final isSelected = selectedCategory == category;
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 4),
-              width: 8,
-              height: 8,
+              width: isSelected ? 8 : 6,
+              height: isSelected ? 8 : 6,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.primary,
+                color: isSelected ? AppColors.primary : Colors.grey.shade400,
               ),
             );
-          }),
+          }).toList(),
         ),
+
         const SizedBox(height: 5),
       ],
     );

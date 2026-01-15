@@ -5,20 +5,24 @@ import '../repositories/account_repository.dart';
 class AccountViewModel extends ChangeNotifier {
   final AccountRepository accountRepository;
 
+  int? accountId;
   String? mobileNumber;
 
   AccountViewModel(this.accountRepository);
 
-  /// Initialize on app start
+  // Initialize on app start
   Future<void> initialize() async {
-    // Fetch mobile number for the currently logged-in account
-    mobileNumber = await accountRepository.getMobileNumber();
+    accountId = await AccountSession.getAccountId();
+    if (accountId != null) {
+      mobileNumber = await accountRepository.getMobileNumber(accountId!);
+    }
     notifyListeners();
   }
 
-  /// Optional: fetch manually anytime
+  // Optional: fetch manually anytime
   Future<void> loadMobileNumber() async {
-    mobileNumber = await accountRepository.getMobileNumber();
+    if (accountId == null) return;
+    mobileNumber = await accountRepository.getMobileNumber(accountId!);
     notifyListeners();
   }
 }

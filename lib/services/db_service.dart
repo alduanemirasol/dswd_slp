@@ -22,7 +22,7 @@ class DBService {
 
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onConfigure: _onConfigure,
       onCreate: _onCreate,
     );
@@ -59,7 +59,11 @@ class DBService {
       {'id': 6, 'text': "Unsa kanunay nimo dala sa biyahe?"},
     ];
     for (var question in securityQuestions) {
-      await db.insert('security_questions', question);
+      await db.insert(
+        'security_questions',
+        question,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
     }
   }
 
@@ -75,7 +79,11 @@ class DBService {
       {'id': 7, 'text': 'Uban Pa'},
     ];
     for (var category in categories) {
-      await db.insert('product_categories', category);
+      await db.insert(
+        'product_categories',
+        category,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
     }
   }
 
@@ -86,7 +94,11 @@ class DBService {
       {'id': 2, 'name': 'Credit'},
     ];
     for (var type in types) {
-      await db.insert('sale_types', type);
+      await db.insert(
+        'sale_types',
+        type,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
     }
   }
 

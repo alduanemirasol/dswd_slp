@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'transaction_card.dart';
 
-class HalinTransactionCard extends StatelessWidget {
-  const HalinTransactionCard({super.key});
+class SalesTransactionCard extends StatelessWidget {
+  const SalesTransactionCard({super.key});
 
   @override
   Widget build(BuildContext context) {
