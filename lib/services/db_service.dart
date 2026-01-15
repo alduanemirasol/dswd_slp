@@ -8,20 +8,32 @@ class DBService {
   DBService._internal();
   static Database? _database;
 
+  // Database instance
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDatabase();
     return _database!;
   }
 
+  // Initialize database
   Future<Database> _initDatabase() async {
     final directory = await getApplicationDocumentsDirectory();
     final path = join(directory.path, 'app_data.db');
-    final db = await openDatabase(path, version: 1, onCreate: _onCreate);
-    await db.execute('PRAGMA foreign_keys = ON');
-    return db;
+
+    return await openDatabase(
+      path,
+      version: 1,
+      onConfigure: _onConfigure,
+      onCreate: _onCreate,
+    );
   }
 
+  // Configure database
+  Future<void> _onConfigure(Database db) async {
+    await db.execute('PRAGMA foreign_keys = ON');
+  }
+
+  // Create tables
   Future<void> _onCreate(Database db, int version) async {
     // Accounts
     await db.execute('''
@@ -35,6 +47,14 @@ class DBService {
       )
     ''');
 
+    // Account security questions
+    await db.execute('''
+      CREATE TABLE security_questions (
+        id INTEGER PRIMARY KEY,
+        text TEXT NOT NULL
+      )
+    ''');
+
     // Account security answers
     await db.execute('''
       CREATE TABLE account_security_answers (
@@ -43,7 +63,8 @@ class DBService {
         security_question_id INTEGER NOT NULL,
         answer TEXT NOT NULL,
         created_at TEXT NOT NULL,
-        FOREIGN KEY(account_id) REFERENCES accounts(id)
+        FOREIGN KEY(account_id) REFERENCES accounts(id),
+        FOREIGN KEY(security_question_id) REFERENCES security_questions(id)
       )
     ''');
 
@@ -60,6 +81,15 @@ class DBService {
         created_at TEXT NOT NULL,
         updated_at TEXT NOT NULL,
         FOREIGN KEY(account_id) REFERENCES accounts(id)
+        FOREIGN KEY(product_category_id) REFERENCES product_categories(id)
+      )
+    ''');
+
+    // Product categories
+    await db.execute('''
+      CREATE TABLE product_categories (
+        id INTEGER PRIMARY KEY,
+        text TEXT NOT NULL
       )
     ''');
 

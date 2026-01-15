@@ -1,3 +1,4 @@
+import 'package:dswd_slp_new/core/colors.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
@@ -16,16 +17,20 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.primary,
       elevation: 0,
       centerTitle: true,
       title: Text(
         title,
-        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
       ),
       leading: showBackButton
           ? IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: onBack ?? () => Navigator.of(context).pop(),
             )
           : null,

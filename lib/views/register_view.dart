@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../widgets/header.dart';
 import '../core/colors.dart';
 
@@ -103,18 +104,27 @@ class RegisterView extends StatelessWidget {
   );
 
   Widget buildTextField({
+    required TextEditingController controller,
     String? hint,
     bool obscureText = false,
-    TextInputType? keyboardType,
     int? maxLength,
+    List<TextInputFormatter>? inputFormatters,
+    TextInputType? keyboardType,
+    String? errorText,
+    Function(String)? onChanged,
   }) {
     return TextFormField(
+      controller: controller,
       obscureText: obscureText,
-      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
+      keyboardType: keyboardType ?? TextInputType.text,
       maxLength: maxLength,
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(fontSize: 14),
+        errorText: errorText,
+        errorStyle: const TextStyle(color: AppColors.error, fontSize: 12),
         filled: true,
         fillColor: Colors.white,
         contentPadding: const EdgeInsets.symmetric(
@@ -128,6 +138,14 @@ class RegisterView extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: AppColors.primary, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: AppColors.error),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: AppColors.error, width: 2),
         ),
       ),
     );

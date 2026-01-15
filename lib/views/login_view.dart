@@ -232,7 +232,7 @@ class _LoginViewState extends State<LoginView>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () => GoRouter.of(context).push('/create_account'),
+            onTap: () => GoRouter.of(context).push('/register'),
             child: const Text(
               "BAG-ONG ACCOUNT",
               style: TextStyle(
