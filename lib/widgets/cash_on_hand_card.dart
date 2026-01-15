@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 import '../core/colors.dart';
 
-class CashSummaryCard extends StatelessWidget {
+class CashOnHandCard extends StatefulWidget {
   final String cash;
   final String mobileNumber;
 
-  const CashSummaryCard({
+  const CashOnHandCard({
     super.key,
     required this.cash,
     required this.mobileNumber,
   });
 
   @override
+  State<CashOnHandCard> createState() => _CashOnHandCardState();
+}
+
+class _CashOnHandCardState extends State<CashOnHandCard> {
+  bool _isHidden = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: AppColors.primary,
         borderRadius: BorderRadius.circular(16),
@@ -39,17 +47,41 @@ class CashSummaryCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            cash,
-            style: const TextStyle(
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-              fontSize: 28,
-            ),
+
+          // Cash amount
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  _isHidden ? '****' : widget.cash,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontSize: 28,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _isHidden = !_isHidden;
+                  });
+                },
+                // Eye icon
+                child: Icon(
+                  _isHidden ? Icons.visibility_off : Icons.visibility,
+                  color: Colors.white,
+                  size: 24,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 8),
+
+          // Mobile number
           Text(
-            'Mobile Number: $mobileNumber',
+            'Mobile Number: ${widget.mobileNumber}',
             style: const TextStyle(
               fontWeight: FontWeight.w500,
               color: Color.fromARGB(255, 219, 219, 219),

@@ -41,6 +41,7 @@ class _BottomNavBarState extends State<CustomBottomNavBar> {
       type: BottomNavigationBarType.fixed,
       selectedItemColor: AppColors.primary,
       unselectedItemColor: Colors.grey,
+      backgroundColor: Colors.white,
     );
   }
 }
