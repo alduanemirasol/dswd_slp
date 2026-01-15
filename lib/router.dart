@@ -5,10 +5,8 @@ import 'models/route_model.dart';
 import 'views/login_view.dart';
 import 'views/register_view.dart';
 
-// RouteObserver to track navigation
 final routeObserver = RouteObserver<ModalRoute<void>>();
 
-// Routes
 const List<AppRoute> appRoutes = [
   AppRoute(path: '/login', page: LoginView()),
   AppRoute(
@@ -18,7 +16,6 @@ const List<AppRoute> appRoutes = [
   ),
 ];
 
-// GoRouter instance
 GoRouter get router => GoRouter(
   initialLocation: '/login',
   observers: [routeObserver],

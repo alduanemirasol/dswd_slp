@@ -38,11 +38,11 @@ class DBService {
     await _createLookupTables(db);
     await _createCoreTables(db);
     await _createRelationshipTables(db);
-    await _insertLookupTables(db);
+    await _seedLookupTables(db);
   }
 
   // Seed all lookup tables
-  Future<void> _insertLookupTables(Database db) async {
+  Future<void> _seedLookupTables(Database db) async {
     await _seedSecurityQuestions(db);
     await _seedProductCategories(db);
     await _seedSaleTypes(db);
