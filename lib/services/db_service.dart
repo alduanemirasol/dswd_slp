@@ -48,6 +48,21 @@ class DBService {
     await _seedSaleTypes(db);
   }
 
+  // Seed security questions
+  Future<void> _seedSecurityQuestions(Database db) async {
+    const List<Map<String, dynamic>> securityQuestions = [
+      {'id': 1, 'text': "Unsa imong unang negosyo?"},
+      {'id': 2, 'text': "Kinsay imong unang silingan?"},
+      {'id': 3, 'text': "Kinsay imong unang suod nga amigo/amiga?"},
+      {'id': 4, 'text': "Asa ka pirmi mamalit?"},
+      {'id': 5, 'text': "Unsa imong paboritong lugar?"},
+      {'id': 6, 'text': "Unsa kanunay nimo dala sa biyahe?"},
+    ];
+    for (var question in securityQuestions) {
+      await db.insert('security_questions', question);
+    }
+  }
+
   // Seed product categories
   Future<void> _seedProductCategories(Database db) async {
     const categories = [
@@ -61,21 +76,6 @@ class DBService {
     ];
     for (var category in categories) {
       await db.insert('product_categories', category);
-    }
-  }
-
-  // Seed security questions
-  Future<void> _seedSecurityQuestions(Database db) async {
-    const List<Map<String, dynamic>> securityQuestions = [
-      {'id': 1, 'text': "Unsa imong unang negosyo?"},
-      {'id': 2, 'text': "Kinsay imong unang silingan?"},
-      {'id': 3, 'text': "Kinsay imong unang suod nga amigo/amiga?"},
-      {'id': 4, 'text': "Asa ka pirmi mamalit?"},
-      {'id': 5, 'text': "Unsa imong paboritong lugar?"},
-      {'id': 6, 'text': "Unsa kanunay nimo dala sa biyahe?"},
-    ];
-    for (var question in securityQuestions) {
-      await db.insert('security_questions', question);
     }
   }
 
