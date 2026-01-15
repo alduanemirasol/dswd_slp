@@ -6,12 +6,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(
-        child: Text("Home Page", style: TextStyle(fontSize: 18)),
-      ),
-
-      bottomNavigationBar: const BottomNavBar(),
+    return const Scaffold(
+      body: Center(child: Text("Home Page")),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

@@ -20,17 +20,17 @@ const List<AppRoute> appRoutes = [
   AppRoute(
     path: '/home',
     page: HomeView(),
-    transition: PageTransitionType.slideLeft,
+    transition: PageTransitionType.none,
   ),
   AppRoute(
     path: '/history',
     page: HistoryView(),
-    transition: PageTransitionType.slideLeft,
+    transition: PageTransitionType.none,
   ),
   AppRoute(
     path: '/settings',
     page: SettingsView(),
-    transition: PageTransitionType.slideLeft,
+    transition: PageTransitionType.none,
   ),
 ];
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../widgets/top_header.dart';
+import '../widgets/header.dart';
 import '../core/colors.dart';
 
 class RegisterView extends StatelessWidget {
