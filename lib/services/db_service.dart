@@ -33,7 +33,7 @@ class DBService {
     await db.execute('PRAGMA foreign_keys = ON'); // enable foreign keys
   }
 
-  // Create all tables and populate initial lookup data
+  // Create tables and seed data
   Future<void> _onCreate(Database db, int version) async {
     await _createLookupTables(db);
     await _createCoreTables(db);
