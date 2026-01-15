@@ -4,6 +4,9 @@ import 'helpers/page_transitions.dart';
 import 'models/route_model.dart';
 import 'views/login_view.dart';
 import 'views/register_view.dart';
+import 'views/home_view.dart';
+import 'views/history_view.dart';
+import 'views/settings_view.dart';
 
 final routeObserver = RouteObserver<ModalRoute<void>>();
 
@@ -14,10 +17,25 @@ const List<AppRoute> appRoutes = [
     page: RegisterView(),
     transition: PageTransitionType.slideLeft,
   ),
+  AppRoute(
+    path: '/home',
+    page: HomeView(),
+    transition: PageTransitionType.slideLeft,
+  ),
+  AppRoute(
+    path: '/history',
+    page: HistoryView(),
+    transition: PageTransitionType.slideLeft,
+  ),
+  AppRoute(
+    path: '/settings',
+    page: SettingsView(),
+    transition: PageTransitionType.slideLeft,
+  ),
 ];
 
 GoRouter get router => GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/home', // Initial route
   observers: [routeObserver],
   routes: appRoutes
       .map(

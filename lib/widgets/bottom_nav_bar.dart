@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../core/colors.dart';
 import '../views/home_view.dart';
 import '../views/history_view.dart';
 import '../views/settings_view.dart';
@@ -42,6 +43,8 @@ class _ReusableBottomNavBarState extends State<ReusableBottomNavBar> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: Colors.grey,
         items: _items
             .map(
               (item) => BottomNavigationBarItem(
@@ -56,9 +59,11 @@ class _ReusableBottomNavBarState extends State<ReusableBottomNavBar> {
 }
 
 /*
+
 Usage example:
 
 MaterialApp(
   home: ReusableBottomNavBar(),
 );
+
 */

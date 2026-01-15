@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Primary brand colors
-  static const Color primary = Color(0xFF0C4B3E); // dark emerald
-  static const Color primaryLight = Color(0xFF38A484); // lighter emerald
-  static const Color primaryDark = Color(0xFF05291F); // darkest emerald
+  static const Color primary = Color(0xFF0C4B3E);
+  static const Color primaryLight = Color(0xFF38A484);
+  static const Color primaryDark = Color(0xFF05291F);
 
   // Backgrounds
   static const Color background = Color(0xFF1F1F1F);

@@ -104,7 +104,7 @@ class RegisterView extends StatelessWidget {
   );
 
   Widget buildTextField({
-    required TextEditingController controller,
+    TextEditingController? controller, // make optional
     String? hint,
     bool obscureText = false,
     int? maxLength,
@@ -114,7 +114,7 @@ class RegisterView extends StatelessWidget {
     Function(String)? onChanged,
   }) {
     return TextFormField(
-      controller: controller,
+      controller: controller, // can be null
       obscureText: obscureText,
       inputFormatters: inputFormatters,
       keyboardType: keyboardType ?? TextInputType.text,
