@@ -6,7 +6,6 @@ class DBService {
   static final DBService _instance = DBService._internal();
   factory DBService() => _instance;
   DBService._internal();
-
   static Database? _database;
 
   // Get database instance
@@ -40,30 +39,6 @@ class DBService {
     await _seedLookupTables(db);
     await _createCoreTables(db);
     await _createRelationshipTables(db);
-  }
-
-  // Lookup tables
-  Future<void> _createLookupTables(Database db) async {
-    await db.execute('''
-      CREATE TABLE security_questions (
-        id INTEGER PRIMARY KEY,
-        text TEXT NOT NULL
-      )
-    ''');
-
-    await db.execute('''
-      CREATE TABLE product_categories (
-        id INTEGER PRIMARY KEY,
-        text TEXT NOT NULL
-      )
-    ''');
-
-    await db.execute('''
-      CREATE TABLE sale_types (
-        id INTEGER PRIMARY KEY,
-        name TEXT NOT NULL
-      )
-    ''');
   }
 
   // Seed default lookup data
@@ -100,6 +75,30 @@ class DBService {
     for (var s in saleTypes) {
       await db.insert('sale_types', s);
     }
+  }
+
+  // Lookup tables
+  Future<void> _createLookupTables(Database db) async {
+    await db.execute('''
+      CREATE TABLE security_questions (
+        id INTEGER PRIMARY KEY,
+        text TEXT NOT NULL
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE product_categories (
+        id INTEGER PRIMARY KEY,
+        text TEXT NOT NULL
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE sale_types (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL
+      )
+    ''');
   }
 
   // Core tables
