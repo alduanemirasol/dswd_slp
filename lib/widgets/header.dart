@@ -1,4 +1,3 @@
-import 'package:dswd_slp_new/core/colors.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
@@ -17,26 +16,27 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: AppColors.primary,
-      elevation: 0,
       centerTitle: true,
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
+      title: Text(title),
       leading: showBackButton
           ? IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              icon: const Icon(Icons.arrow_back),
               onPressed: onBack ?? () => Navigator.of(context).pop(),
             )
           : null,
+      elevation: 0,
     );
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
+
+/*
+Usage example:
+
+Scaffold(
+  appBar: const Header(title: "Home"),
+  body: const Center(child: Text("Welcome")),
+);
+*/
