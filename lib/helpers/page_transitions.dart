@@ -1,45 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-enum PageTransitionType { forward, back, none }
+enum PageTransitionType { slideLeft, slideRight, none }
 
-Page<void> customPage(
-  GoRouterState state,
-  Widget child, {
-  PageTransitionType transition = PageTransitionType.forward,
+CustomTransitionPage<T> buildPageWithTransition<T>({
+  required GoRouterState state,
+  required Widget child,
+  PageTransitionType transition = PageTransitionType.slideLeft,
 }) {
-  switch (transition) {
-    case PageTransitionType.none:
-      return NoTransitionPage(key: state.pageKey, child: child);
-    case PageTransitionType.forward:
-      return CustomTransitionPage(
-        key: state.pageKey,
-        child: child,
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          final offsetAnimation =
-              Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(
-                CurvedAnimation(parent: animation, curve: Curves.easeInOut),
-              );
-          return SlideTransition(position: offsetAnimation, child: child);
-        },
-      );
-    case PageTransitionType.back:
-      return CustomTransitionPage(
-        key: state.pageKey,
-        child: child,
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          final offsetAnimation =
-              Tween<Offset>(
-                begin: const Offset(-1, 0),
-                end: Offset.zero,
-              ).animate(
-                CurvedAnimation(parent: animation, curve: Curves.easeInOut),
-              );
-          return SlideTransition(position: offsetAnimation, child: child);
-        },
-      );
-  }
+  return CustomTransitionPage<T>(
+    key: state.pageKey,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      switch (transition) {
+        case PageTransitionType.slideRight:
+          return _slideTransition(animation, child, const Offset(-1, 0));
+        case PageTransitionType.slideLeft:
+          return _slideTransition(animation, child, const Offset(1, 0));
+        case PageTransitionType.none:
+          return child;
+      }
+    },
+  );
+}
+
+Widget _slideTransition(
+  Animation<double> animation,
+  Widget child,
+  Offset beginOffset,
+) {
+  final tween = Tween(
+    begin: beginOffset,
+    end: Offset.zero,
+  ).chain(CurveTween(curve: Curves.easeInOut));
+  return SlideTransition(position: animation.drive(tween), child: child);
 }
