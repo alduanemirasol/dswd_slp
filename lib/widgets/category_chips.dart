@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/colors.dart';
+import '../helpers/box_shadows.dart';
 
 class CategoryChipsWithDots extends StatelessWidget {
   final List<String> categories;
@@ -44,13 +45,7 @@ class CategoryChipsWithDots extends StatelessWidget {
                           ? AppColors.primary
                           : Colors.grey.shade300,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withAlpha(51),
-                        blurRadius: 2,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
+                    boxShadow: AppShadows.defaultShadow,
                   ),
                   child: Text(
                     category,

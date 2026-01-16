@@ -133,6 +133,7 @@ class DBService {
           amount REAL NOT NULL,
           expense_date TEXT NOT NULL,
           description TEXT,
+          receipt_image TEXT,    
           created_at TEXT NOT NULL,
           updated_at TEXT NOT NULL,
           FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE,

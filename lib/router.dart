@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'helpers/page_transitions.dart';
 import 'models/route_model.dart';
+import 'views/expense_view.dart';
 import 'views/login_view.dart';
 import 'views/register_view.dart';
 import 'views/home_view.dart';
@@ -34,9 +35,14 @@ const List<AppRoute> appRoutes = [
     transition: PageTransitionType.none,
   ),
   AppRoute(
+    path: '/expenses',
+    page: ExpenseView(),
+    transition: PageTransitionType.slideLeft,
+  ),
+  AppRoute(
     path: '/stock_in',
     page: StockInView(),
-    transition: PageTransitionType.none,
+    transition: PageTransitionType.slideLeft,
   ),
 ];
 

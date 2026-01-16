@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/colors.dart';
+import '../helpers/box_shadows.dart';
 
 class CashOnHandCard extends StatefulWidget {
   final String cash;
@@ -27,13 +28,7 @@ class _CashOnHandCardState extends State<CashOnHandCard> {
       decoration: BoxDecoration(
         color: AppColors.primary,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withAlpha(51),
-            blurRadius: 2,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        boxShadow: AppShadows.defaultShadow,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

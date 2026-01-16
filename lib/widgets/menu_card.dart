@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../helpers/box_shadows.dart';
 
 class MenuCard extends StatelessWidget {
   final String title;
@@ -24,13 +25,7 @@ class MenuCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withAlpha(51),
-              blurRadius: 2,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          boxShadow: AppShadows.defaultShadow,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

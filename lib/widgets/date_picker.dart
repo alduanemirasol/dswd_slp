@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/colors.dart';
+import '../helpers/box_shadows.dart';
 import '../helpers/date_helper.dart';
 
 class DatePicker extends StatelessWidget {
@@ -13,13 +14,7 @@ class DatePicker extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withAlpha(51),
-            blurRadius: 2,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        boxShadow: AppShadows.defaultShadow,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -40,6 +40,7 @@ class HomeView extends StatelessWidget {
                       MenuCard(
                         title: 'Gasto',
                         iconPath: 'lib/assets/gasto_icon.png',
+                        route: '/expenses',
                       ),
                       MenuCard(
                         title: 'Stock In',

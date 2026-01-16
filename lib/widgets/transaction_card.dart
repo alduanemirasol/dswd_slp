@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../helpers/box_shadows.dart';
 import '../helpers/date_helper.dart';
 
 class TransactionCard extends StatelessWidget {
@@ -24,13 +25,7 @@ class TransactionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withAlpha(51),
-            blurRadius: 2,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        boxShadow: AppShadows.defaultShadow,
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),

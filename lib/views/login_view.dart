@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../core/colors.dart';
+import '../helpers/box_shadows.dart';
 import '../providers/global_providers.dart';
 import '../view_models/login_view_model.dart';
 
@@ -103,13 +104,7 @@ class _LoginViewState extends State<LoginView>
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 51),
-            blurRadius: 2,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        boxShadow: AppShadows.defaultShadow,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -275,13 +270,7 @@ class _KeypadButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withValues(alpha: 51),
-              blurRadius: 2,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          boxShadow: AppShadows.defaultShadow,
         ),
         child: Center(
           child: Text(
