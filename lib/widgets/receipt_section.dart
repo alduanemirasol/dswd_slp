@@ -31,7 +31,7 @@ class ReceiptSection extends StatelessWidget {
         GestureDetector(
           onTap: onPick,
           child: Container(
-            height: 300,
+            height: 150,
             width: double.infinity,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey.shade400),
