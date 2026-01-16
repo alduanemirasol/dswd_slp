@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
+import '../helpers/db_seed.dart';
 
 class DBService {
   static final DBService _instance = DBService._internal();
@@ -38,84 +39,7 @@ class DBService {
     await _createLookupTables(db);
     await _createCoreTables(db);
     await _createRelationshipTables(db);
-    await _seedLookupTables(db);
-  }
-
-  // Seed all lookup tables
-  Future<void> _seedLookupTables(Database db) async {
-    await _seedSecurityQuestions(db);
-    await _seedProductCategories(db);
-    await _seedSaleTypes(db);
-    await _seedFlowTypes(db);
-  }
-
-  // Seed security questions
-  Future<void> _seedSecurityQuestions(Database db) async {
-    const List<Map<String, dynamic>> securityQuestions = [
-      {'id': 1, 'text': "Unsa imong unang negosyo?"},
-      {'id': 2, 'text': "Kinsay imong unang silingan?"},
-      {'id': 3, 'text': "Kinsay imong unang suod nga amigo/amiga?"},
-      {'id': 4, 'text': "Asa ka pirmi mamalit?"},
-      {'id': 5, 'text': "Unsa imong paboritong lugar?"},
-      {'id': 6, 'text': "Unsa kanunay nimo dala sa biyahe?"},
-    ];
-    for (var question in securityQuestions) {
-      await db.insert(
-        'security_questions',
-        question,
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-  }
-
-  // Seed product categories
-  Future<void> _seedProductCategories(Database db) async {
-    const categories = [
-      {'id': 1, 'text': 'Imnonon'},
-      {'id': 2, 'text': 'Alak'},
-      {'id': 3, 'text': 'Pagkaon'},
-      {'id': 4, 'text': 'Panglimpyo'},
-      {'id': 5, 'text': 'Gamit sa Panimalay'},
-      {'id': 6, 'text': 'Gamit sa Eskwelahan'},
-      {'id': 7, 'text': 'Uban Pa'},
-    ];
-    for (var category in categories) {
-      await db.insert(
-        'product_categories',
-        category,
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-  }
-
-  // Seed sale types
-  Future<void> _seedSaleTypes(Database db) async {
-    const types = [
-      {'id': 1, 'name': 'Cash'},
-      {'id': 2, 'name': 'Credit'},
-    ];
-    for (var type in types) {
-      await db.insert(
-        'sale_types',
-        type,
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-  }
-
-  Future<void> _seedFlowTypes(Database db) async {
-    const types = [
-      {'id': 1, 'name': 'income'},
-      {'id': 2, 'name': 'expense'},
-    ];
-
-    for (final type in types) {
-      await db.insert(
-        'flow_types',
-        type,
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
+    await DBSeed.seedLookupTables(db);
   }
 
   // Lookup tables
@@ -144,7 +68,7 @@ class DBService {
         )
       ''');
 
-    // Flow type
+    // Flow types
     await db.execute('''
         CREATE TABLE flow_types (
           id INTEGER PRIMARY KEY,
