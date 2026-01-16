@@ -7,6 +7,7 @@ import 'views/register_view.dart';
 import 'views/home_view.dart';
 import 'views/history_view.dart';
 import 'views/settings_view.dart';
+import 'views/stock_in_view.dart';
 
 final routeObserver = RouteObserver<ModalRoute<void>>();
 
@@ -30,6 +31,11 @@ const List<AppRoute> appRoutes = [
   AppRoute(
     path: '/settings',
     page: SettingsView(),
+    transition: PageTransitionType.none,
+  ),
+  AppRoute(
+    path: '/stock_in',
+    page: StockInView(),
     transition: PageTransitionType.none,
   ),
 ];

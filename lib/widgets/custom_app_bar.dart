@@ -1,3 +1,4 @@
+import 'package:dswd_slp_new/core/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -17,13 +18,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: true,
-      title: Text(title),
+      title: Text(title, style: const TextStyle(color: Colors.white)),
       leading: showBackButton
           ? IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: onBack ?? () => Navigator.of(context).pop(),
             )
           : null,
+      backgroundColor: AppColors.primary,
       elevation: 0,
     );
   }
@@ -31,12 +33,3 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
-
-/*
-Usage example:
-
-Scaffold(
-  appBar: const Header(title: "Home"),
-  body: const Center(child: Text("Welcome")),
-);
-*/
