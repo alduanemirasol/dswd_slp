@@ -13,11 +13,14 @@ class GlobalProviders {
 
   static Future<void> initialize() async {
     final db = await DBService().database;
-    accountRepository = AccountRepository(db);
-    accountViewModel = AccountViewModel(accountRepository);
 
+    // Initialize repositories
+    accountRepository = AccountRepository(db);
     productRepository = ProductRepository(db);
-    historyViewModel = HistoryViewModel(productRepository);
+
+    // Initialize view models
+    accountViewModel = AccountViewModel(accountRepository);
+    historyViewModel = HistoryViewModel();
   }
 }
 

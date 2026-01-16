@@ -48,6 +48,24 @@ class DBSeed {
     }
   }
 
+  // Seed expense categories
+  static Future<void> seedExpenseCategories(Database db) async {
+    const categories = [
+      {'id': 1, 'name': 'Pagkaon'},
+      {'id': 2, 'name': 'Tubig'},
+      {'id': 3, 'name': 'Kuryente'},
+      {'id': 4, 'name': 'Mga Bayronon'},
+      {'id': 5, 'name': 'Uban pa'},
+    ];
+    for (var category in categories) {
+      await db.insert(
+        'expenses_categories',
+        category,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+  }
+
   // Seed sale types
   static Future<void> seedSaleTypes(Database db) async {
     const types = [

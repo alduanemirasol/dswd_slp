@@ -38,13 +38,17 @@ class HistoryView extends StatelessWidget {
                   ),
                 ),
 
-                // Dynamic category chips
+                // Category chips
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: CategoryChipsWithDots(
-                    categories: vm.categories,
-                    selectedCategory: vm.selectedCategory ?? '',
-                    onCategorySelected: vm.selectCategory,
+                  child: Consumer<HistoryViewModel>(
+                    builder: (context, vm, _) {
+                      return CategoryChipsWithDots(
+                        categories: vm.categories,
+                        selectedCategory: vm.selectedCategory,
+                        onCategorySelected: vm.selectCategory,
+                      );
+                    },
                   ),
                 ),
 
