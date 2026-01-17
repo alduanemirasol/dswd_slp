@@ -17,41 +17,43 @@ class RegisterView extends StatelessWidget {
         title: "Bag-ong Account",
         showBackButton: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FormFieldItem(label: "Association Name", hint: "DSWD-SLP"),
-            const SizedBox(height: 15),
-            FormFieldItem(
-              label: "Mobile Number",
-              hint: "09XXXXXXXXX",
-              maxLength: 11,
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 15),
-            PinInputRow(),
-            const SizedBox(height: 15),
-            SecurityQuestionDropdown(
-              label: "Security Question (for PIN reset)",
-              items: const [
-                DropdownMenuItem(value: "q1", child: Text("Question 1")),
-                DropdownMenuItem(value: "q2", child: Text("Question 2")),
-              ],
-              onChanged: (value) {},
-            ),
-            const SizedBox(height: 15),
-            FormFieldItem(label: "Tubag", hint: "Isulat ang imong tubag"),
-            const SizedBox(height: 25),
-            CustomButton(
-              text: "Create",
-              backgroundColor: AppColors.primary,
-              onPressed: () {
-                // Your register action
-              },
-            ),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FormFieldItem(label: "Association Name", hint: "DSWD-SLP"),
+              const SizedBox(height: 15),
+              FormFieldItem(
+                label: "Mobile Number",
+                hint: "09XXXXXXXXX",
+                maxLength: 11,
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 15),
+              PinInputRow(),
+              const SizedBox(height: 15),
+              SecurityQuestionDropdown(
+                label: "Security Question (for PIN reset)",
+                items: const [
+                  DropdownMenuItem(value: "q1", child: Text("Question 1")),
+                  DropdownMenuItem(value: "q2", child: Text("Question 2")),
+                ],
+                onChanged: (value) {},
+              ),
+              const SizedBox(height: 15),
+              FormFieldItem(label: "Tubag", hint: "Isulat ang imong tubag"),
+              const SizedBox(height: 25),
+              CustomButton(
+                text: "Create",
+                backgroundColor: AppColors.primary,
+                onPressed: () {
+                  // Your register action
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

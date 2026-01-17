@@ -18,45 +18,43 @@ class HistoryView extends StatelessWidget {
       child: Scaffold(
         appBar: const CustomHeader(title: 'History'),
         backgroundColor: Colors.white,
-        body: Consumer<HistoryViewModel>(
-          builder: (context, vm, _) {
-            if (vm.isLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
+        body: SafeArea(
+          child: Consumer<HistoryViewModel>(
+            builder: (context, vm, _) {
+              if (vm.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-            return Column(
-              children: [
-                // Date pickers
-                const Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(child: DatePicker(title: 'Start Date')),
-                      SizedBox(width: 12),
-                      Expanded(child: DatePicker(title: 'End Date')),
-                    ],
+              return Column(
+                children: [
+                  // Date pickers
+                  const Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        Expanded(child: DatePicker(title: 'Start Date')),
+                        SizedBox(width: 12),
+                        Expanded(child: DatePicker(title: 'End Date')),
+                      ],
+                    ),
                   ),
-                ),
 
-                // Category chips
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Consumer<HistoryViewModel>(
-                    builder: (context, vm, _) {
-                      return CategoryChipsWithDots(
-                        categories: vm.categories,
-                        selectedCategory: vm.selectedCategory,
-                        onCategorySelected: vm.selectCategory,
-                      );
-                    },
+                  // Category chips
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: CategoryChipsWithDots(
+                      categories: vm.categories,
+                      selectedCategory: vm.selectedCategory,
+                      onCategorySelected: vm.selectCategory,
+                    ),
                   ),
-                ),
 
-                // Placeholder for transaction list
-                const Expanded(child: TransactionList()),
-              ],
-            );
-          },
+                  // Transaction list
+                  const Expanded(child: TransactionList()),
+                ],
+              );
+            },
+          ),
         ),
         bottomNavigationBar: const CustomBottomNavBar(),
       ),

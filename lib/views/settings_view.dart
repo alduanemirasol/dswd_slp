@@ -10,7 +10,7 @@ class SettingsView extends StatelessWidget {
     return const Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomHeader(title: 'Settings'),
-      body: Center(child: Text("Settings Page")),
+      body: SafeArea(child: Center(child: Text("Settings Page"))),
       bottomNavigationBar: CustomBottomNavBar(),
     );
   }

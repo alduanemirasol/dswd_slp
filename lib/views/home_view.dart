@@ -13,72 +13,74 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: const CustomHeader(title: 'Home'),
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          const SizedBox(height: 16),
-          // Cash summary card
-          const CashOnHandCard(cash: 'PHP ****', mobileNumber: 'Not set'),
-          const SizedBox(height: 16),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            // Cash summary card
+            const CashOnHandCard(cash: 'PHP ****', mobileNumber: 'Not set'),
+            const SizedBox(height: 16),
 
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  // Transactions
-                  MenuGrid(
-                    title: 'Transactions',
-                    items: const [
-                      MenuCard(
-                        title: 'Halin',
-                        iconPath: 'lib/assets/record_icon.png',
-                      ),
-                      MenuCard(
-                        title: 'Utang',
-                        iconPath: 'lib/assets/utang_icon.png',
-                      ),
-                      MenuCard(
-                        title: 'Gasto',
-                        iconPath: 'lib/assets/gasto_icon.png',
-                        route: '/expenses',
-                      ),
-                      MenuCard(
-                        title: 'Stock In',
-                        iconPath: 'lib/assets/stock_in_icon.png',
-                        route: '/stock_in',
-                      ),
-                      MenuCard(
-                        title: 'Capital\nManagement',
-                        iconPath: 'lib/assets/capital_management_icon.png',
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    // Transactions
+                    MenuGrid(
+                      title: 'Transactions',
+                      items: const [
+                        MenuCard(
+                          title: 'Halin',
+                          iconPath: 'lib/assets/record_icon.png',
+                        ),
+                        MenuCard(
+                          title: 'Utang',
+                          iconPath: 'lib/assets/utang_icon.png',
+                        ),
+                        MenuCard(
+                          title: 'Gasto',
+                          iconPath: 'lib/assets/gasto_icon.png',
+                          route: '/expenses',
+                        ),
+                        MenuCard(
+                          title: 'Stock In',
+                          iconPath: 'lib/assets/stock_in_icon.png',
+                          route: '/stock_in',
+                        ),
+                        MenuCard(
+                          title: 'Capital\nManagement',
+                          iconPath: 'lib/assets/capital_management_icon.png',
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
 
-                  // Reports
-                  MenuGrid(
-                    title: 'Reports',
-                    items: const [
-                      MenuCard(
-                        title: 'Balance\nSheet',
-                        iconPath: 'lib/assets/balance_sheet_icon.png',
-                      ),
-                      MenuCard(
-                        title: 'Income\nStatement',
-                        iconPath: 'lib/assets/income_statement_icon.png',
-                      ),
-                      MenuCard(
-                        title: 'Cash\nFlow',
-                        iconPath: 'lib/assets/cashflow_icon.png',
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                ],
+                    // Reports
+                    MenuGrid(
+                      title: 'Reports',
+                      items: const [
+                        MenuCard(
+                          title: 'Balance\nSheet',
+                          iconPath: 'lib/assets/balance_sheet_icon.png',
+                        ),
+                        MenuCard(
+                          title: 'Income\nStatement',
+                          iconPath: 'lib/assets/income_statement_icon.png',
+                        ),
+                        MenuCard(
+                          title: 'Cash\nFlow',
+                          iconPath: 'lib/assets/cashflow_icon.png',
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: const CustomBottomNavBar(),
     );

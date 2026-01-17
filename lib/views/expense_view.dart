@@ -16,55 +16,56 @@ class ExpenseView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: const CustomAppBar(title: 'Gasto', showBackButton: true),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            // Banners
-            const MessageBanner(
-              message: "Success message",
-              color: AppColors.success,
-              icon: Icons.check_circle,
-            ),
-            const MessageBanner(
-              message: "Error message",
-              color: AppColors.error,
-              icon: Icons.error,
-            ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              // Banners
+              const MessageBanner(
+                message: "Success message",
+                color: AppColors.success,
+                icon: Icons.check_circle,
+              ),
+              const MessageBanner(
+                message: "Error message",
+                color: AppColors.error,
+                icon: Icons.error,
+              ),
+              const SizedBox(height: 15),
 
-            const SizedBox(height: 15),
+              // Date Picker
+              const CustomDatePicker(label: 'Petsa', value: 'January 16, 2026'),
+              const SizedBox(height: 15),
 
-            // Date Picker
-            const CustomDatePicker(label: 'Petsa', value: 'January 16, 2026'),
-            const SizedBox(height: 15),
+              // Category Dropdown
+              const CustomDropdownField(
+                icon: Icons.category,
+                label: 'Kategorya',
+                value: null,
+                items: ['Category 1', 'Category 2'],
+              ),
+              const SizedBox(height: 15),
 
-            // Category Dropdown
-            const CustomDropdownField(
-              icon: Icons.category,
-              label: 'Kategorya',
-              value: null,
-              items: ['Category 1', 'Category 2'],
-            ),
-            const SizedBox(height: 15),
+              // Amount
+              const CustomTextField(
+                label: 'Presyo',
+                prefixText: '₱',
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 15),
 
-            // Amount
-            const CustomTextField(
-              label: 'Presyo',
-              prefixText: '₱',
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 15),
+              // Description
+              const CustomTextField(
+                label: 'Deskripsyon',
+                prefixIcon: Icon(Icons.description, color: AppColors.primary),
+              ),
+              const SizedBox(height: 25),
 
-            // Description
-            const CustomTextField(
-              label: 'Deskripsyon',
-              prefixIcon: Icon(Icons.description, color: AppColors.primary),
-            ),
-            const SizedBox(height: 25),
-
-            // Receipt Section
-            const ReceiptSection(),
-          ],
+              // Receipt Section
+              const ReceiptSection(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(

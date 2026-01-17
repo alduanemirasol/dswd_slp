@@ -16,59 +16,61 @@ class StockInView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(title: 'Stock In', showBackButton: true),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            const MessageBanner(
-              message: 'Success message',
-              color: Colors.green,
-              icon: Icons.check_circle,
-            ),
-            const MessageBanner(
-              message: 'Error message',
-              color: Colors.red,
-              icon: Icons.error,
-            ),
-            const SizedBox(height: 15),
-            const ReadOnlyInputRow(
-              icon: Icons.calendar_today,
-              label: 'Date',
-              value: 'Select Date',
-            ),
-            const SizedBox(height: 15),
-            const CustomDropdownField(
-              icon: Icons.category,
-              label: 'Kategorya',
-              value: null,
-              items: ['Item 1', 'Item 2'],
-            ),
-            const SizedBox(height: 15),
-            const CustomTextField(
-              label: 'Pangalan sa produkto',
-              prefixIcon: Icon(Icons.edit, color: AppColors.primary),
-            ),
-            const SizedBox(height: 15),
-            const CustomTextField(
-              label: 'Presyo sa pagpalit',
-              prefixText: '₱',
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 15),
-            const CustomTextField(
-              label: 'Presyo sa pagbaligya',
-              prefixIcon: Icon(Icons.calculate, color: AppColors.primary),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 15),
-            const CustomTextField(
-              label: 'Gidaghanon',
-              prefixIcon: Icon(Icons.shopping_cart, color: AppColors.primary),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 15),
-            const ImageUploadField(image: null),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              const MessageBanner(
+                message: 'Success message',
+                color: Colors.green,
+                icon: Icons.check_circle,
+              ),
+              const MessageBanner(
+                message: 'Error message',
+                color: Colors.red,
+                icon: Icons.error,
+              ),
+              const SizedBox(height: 15),
+              const ReadOnlyInputRow(
+                icon: Icons.calendar_today,
+                label: 'Date',
+                value: 'Select Date',
+              ),
+              const SizedBox(height: 15),
+              const CustomDropdownField(
+                icon: Icons.category,
+                label: 'Kategorya',
+                value: null,
+                items: ['Item 1', 'Item 2'],
+              ),
+              const SizedBox(height: 15),
+              const CustomTextField(
+                label: 'Pangalan sa produkto',
+                prefixIcon: Icon(Icons.edit, color: AppColors.primary),
+              ),
+              const SizedBox(height: 15),
+              const CustomTextField(
+                label: 'Presyo sa pagpalit',
+                prefixText: '₱',
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 15),
+              const CustomTextField(
+                label: 'Presyo sa pagbaligya',
+                prefixIcon: Icon(Icons.calculate, color: AppColors.primary),
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 15),
+              const CustomTextField(
+                label: 'Gidaghanon',
+                prefixIcon: Icon(Icons.shopping_cart, color: AppColors.primary),
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 15),
+              const ImageUploadField(image: null),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
