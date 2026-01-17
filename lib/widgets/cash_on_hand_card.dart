@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../core/colors.dart';
+import '../constants/colors.dart';
 import '../helpers/box_shadows.dart';
 
 class CashOnHandCard extends StatefulWidget {

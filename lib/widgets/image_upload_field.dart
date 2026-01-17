@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import '../core/colors.dart';
+import '../constants/colors.dart';
 
 class ImageUploadField extends StatelessWidget {
   final File? image;

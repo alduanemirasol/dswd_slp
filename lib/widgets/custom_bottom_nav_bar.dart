@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../models/navigation_item_model.dart';
-import '../core/colors.dart';
+import '../constants/colors.dart';
 
 // Navigation items
 const List<NavigationItem> navItems = [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../widgets/custom_app_bar.dart';
-import '../core/colors.dart';
+import '../constants/colors.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});

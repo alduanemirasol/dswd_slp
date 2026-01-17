@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../core/colors.dart';
+import '../constants/colors.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_dropdown_field.dart';

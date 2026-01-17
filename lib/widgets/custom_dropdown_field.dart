@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../core/colors.dart';
+import '../constants/colors.dart';
 
 class CustomDropdownField extends StatelessWidget {
   final IconData icon;

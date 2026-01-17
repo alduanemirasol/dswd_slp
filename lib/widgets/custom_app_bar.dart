@@ -1,4 +1,4 @@
-import 'package:dswd_slp_new/core/colors.dart';
+import 'package:dswd_slp_new/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

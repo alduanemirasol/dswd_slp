@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../core/colors.dart';
+import '../constants/colors.dart';
 import '../helpers/box_shadows.dart';
 import '../providers/global_providers.dart';
 import '../view_models/login_view_model.dart';

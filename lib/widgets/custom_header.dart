@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../core/colors.dart';
+import '../constants/colors.dart';
 
 class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   final String title;
