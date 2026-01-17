@@ -40,11 +40,6 @@ class CategoryChipsWithDots extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isSelected ? AppColors.primary : Colors.white,
                     borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
-                      color: isSelected
-                          ? AppColors.primary
-                          : Colors.grey.shade300,
-                    ),
                     boxShadow: AppShadows.defaultShadow,
                   ),
                   child: Text(
