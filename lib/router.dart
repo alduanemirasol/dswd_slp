@@ -13,7 +13,7 @@ import 'views/stock_in_view.dart';
 final routeObserver = RouteObserver<ModalRoute<void>>();
 
 // Initial route
-const String initialRoute = '/login';
+const String initialRoute = '/home';
 
 const List<AppRoute> appRoutes = [
   AppRoute(path: '/login', page: LoginView()),
