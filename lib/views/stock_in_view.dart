@@ -14,7 +14,7 @@ class StockInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(title: 'Stock In', showBackButton: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),

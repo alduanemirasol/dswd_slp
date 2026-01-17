@@ -8,6 +8,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomHeader(title: 'Settings'),
       body: Center(child: Text("Settings Page")),
       bottomNavigationBar: CustomBottomNavBar(),
