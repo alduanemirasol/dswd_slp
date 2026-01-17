@@ -71,14 +71,14 @@ class _LoginViewState extends State<LoginView>
       child: Consumer<LoginViewModel>(
         builder: (context, viewModel, _) {
           return Scaffold(
-            backgroundColor: AppColors.surface,
+            backgroundColor: Colors.white,
             body: SafeArea(
               child: Column(
                 children: [
                   const SizedBox(height: 20),
                   Column(
                     children: [
-                      Image.asset('lib/assets/logo.png', height: 80),
+                      Image.asset('lib/assets/app_logo.png', height: 80),
                       const SizedBox(height: 10),
                       const Text(
                         "E.M.P.O.W.E.R",
