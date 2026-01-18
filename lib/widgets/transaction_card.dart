@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../helpers/box_shadows.dart';
+import '../helpers/box_shadows_helper.dart';
 import '../helpers/date_helper.dart';
 
 class TransactionCard extends StatelessWidget {

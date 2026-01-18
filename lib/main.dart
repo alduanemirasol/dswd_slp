@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'providers/global_providers.dart';
-import 'helpers/orientation.dart';
-import 'helpers/router.dart';
+import 'helpers/orientation_helper.dart';
+import 'helpers/router_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final router = createRouter();
+    final router = buildAppRouter();
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,

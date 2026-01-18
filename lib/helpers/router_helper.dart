@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'page_transitions_helper.dart';
 import '../models/route_model.dart';
 import '../routes.dart';
-import 'page_transitions.dart';
 
 final RouteObserver<ModalRoute<void>> routeObserver =
     RouteObserver<ModalRoute<void>>();

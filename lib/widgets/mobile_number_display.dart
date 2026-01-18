@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
-import '../helpers/box_shadows.dart';
+import '../helpers/box_shadows_helper.dart';
 
 class MobileNumberDisplay extends StatelessWidget {
   const MobileNumberDisplay({super.key});

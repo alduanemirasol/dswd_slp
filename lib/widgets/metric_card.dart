@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../helpers/box_shadows.dart';
+import '../helpers/box_shadows_helper.dart';
 
 class MetricCard extends StatelessWidget {
   final String label;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../helpers/box_shadows.dart';
+import '../helpers/box_shadows_helper.dart';
 
 class MenuCard extends StatelessWidget {
   final String title;

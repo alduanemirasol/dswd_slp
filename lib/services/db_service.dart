@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
-import '../helpers/db_seed.dart';
+import '../helpers/db_seed_helper.dart';
 
 class DBService {
   static final DBService _instance = DBService._internal();

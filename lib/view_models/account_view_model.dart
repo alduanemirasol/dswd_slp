@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import '../helpers/account_session.dart';
+import '../helpers/account_session_helper.dart';
 import '../repositories/account_repository.dart';
 
 class AccountViewModel extends ChangeNotifier {

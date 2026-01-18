@@ -1,4 +1,4 @@
-import 'helpers/page_transitions.dart';
+import 'helpers/page_transitions_helper.dart';
 import 'models/route_model.dart';
 import 'views/capital_management_view.dart';
 import 'views/debt_view.dart';

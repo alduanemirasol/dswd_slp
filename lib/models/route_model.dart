@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../helpers/page_transitions.dart';
+import '../helpers/page_transitions_helper.dart';
 
 class AppRoute {
   final String path;
