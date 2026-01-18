@@ -51,6 +51,7 @@ class HomeView extends StatelessWidget {
                         MenuCard(
                           title: 'Capital\nManagement',
                           iconPath: 'lib/assets/capital_management_icon.png',
+                          route: '/capital_management',
                         ),
                       ],
                     ),
