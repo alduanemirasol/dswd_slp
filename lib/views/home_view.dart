@@ -17,16 +17,13 @@ class HomeView extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 16),
-            // Cash summary card
             const CashOnHandCard(cash: 'PHP ****', mobileNumber: 'Not set'),
             const SizedBox(height: 16),
-
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    // Transactions
                     MenuGrid(
                       title: 'Transactions',
                       items: const [
@@ -56,8 +53,6 @@ class HomeView extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 24),
-
-                    // Reports
                     MenuGrid(
                       title: 'Reports',
                       items: const [

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'helpers/orientation.dart';
 import 'providers/global_providers.dart';
 import 'router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalProviders.initialize();
+  await OrientationHelper.lockPortrait();
   runApp(const MyApp());
 }
 
