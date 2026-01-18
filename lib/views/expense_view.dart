@@ -5,7 +5,6 @@ import '../widgets/custom_date_picker.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/custom_dropdown_field.dart';
 import '../widgets/custom_button.dart';
-import '../widgets/message_banner.dart';
 import '../widgets/receipt_section.dart';
 
 class ExpenseView extends StatelessWidget {
@@ -14,26 +13,13 @@ class ExpenseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Colors.white,
       appBar: const CustomAppBar(title: 'Gasto', showBackButton: true),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              // Banners
-              const MessageBanner(
-                message: "Success message",
-                color: AppColors.success,
-                icon: Icons.check_circle,
-              ),
-              const MessageBanner(
-                message: "Error message",
-                color: AppColors.error,
-                icon: Icons.error,
-              ),
-              const SizedBox(height: 15),
-
               // Date Picker
               const CustomDatePicker(label: 'Petsa', value: 'January 16, 2026'),
               const SizedBox(height: 15),

@@ -5,7 +5,6 @@ import '../widgets/custom_button.dart';
 import '../widgets/custom_dropdown_field.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/image_upload_field.dart';
-import '../widgets/message_banner.dart';
 import '../widgets/read_only_input_row.dart';
 
 class StockInView extends StatelessWidget {
@@ -21,17 +20,6 @@ class StockInView extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              const MessageBanner(
-                message: 'Success message',
-                color: Colors.green,
-                icon: Icons.check_circle,
-              ),
-              const MessageBanner(
-                message: 'Error message',
-                color: Colors.red,
-                icon: Icons.error,
-              ),
-              const SizedBox(height: 15),
               const ReadOnlyInputRow(
                 icon: Icons.calendar_today,
                 label: 'Date',
