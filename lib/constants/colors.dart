@@ -20,11 +20,4 @@ class AppColors {
   static const Color warning = Color(0xFFFFC107);
   static const Color error = Color(0xFFF44336);
   static const Color info = Color(0xFF2196F3);
-
-  // Divider and borders
-  static const Color divider = Color(0xFFE0E0E0);
-  static const Color border = Color(0xFFBDBDBD);
-
-  // Shadows
-  static const Color shadow = Color.fromRGBO(0, 0, 0, 0.08);
 }

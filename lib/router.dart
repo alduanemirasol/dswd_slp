@@ -17,25 +17,13 @@ const String initialRoute = '/home';
 
 const List<AppRoute> appRoutes = [
   AppRoute(path: '/login', page: LoginView()),
+  AppRoute(path: '/home', page: HomeView()),
+  AppRoute(path: '/history', page: HistoryView()),
+  AppRoute(path: '/settings', page: SettingsView()),
   AppRoute(
     path: '/register',
     page: RegisterView(),
     transition: PageTransitionType.slideLeft,
-  ),
-  AppRoute(
-    path: '/home',
-    page: HomeView(),
-    transition: PageTransitionType.none,
-  ),
-  AppRoute(
-    path: '/history',
-    page: HistoryView(),
-    transition: PageTransitionType.none,
-  ),
-  AppRoute(
-    path: '/settings',
-    page: SettingsView(),
-    transition: PageTransitionType.none,
   ),
   AppRoute(
     path: '/expenses',
