@@ -7,7 +7,7 @@ import '../routes.dart';
 final RouteObserver<ModalRoute<void>> routeObserver =
     RouteObserver<ModalRoute<void>>();
 
-GoRouter buildAppRouter() {
+GoRouter AppRouter() {
   return GoRouter(
     initialLocation: initialRoute,
     observers: [routeObserver],
