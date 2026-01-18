@@ -37,9 +37,9 @@ class BalanceSummaryCard extends StatelessWidget {
           Text(
             amount,
             style: const TextStyle(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
               color: Colors.white,
+              fontSize: 28,
             ),
           ),
           const SizedBox(height: 6),
