@@ -34,6 +34,7 @@ class HomeView extends StatelessWidget {
                         MenuCard(
                           title: 'Utang',
                           iconPath: 'lib/assets/utang_icon.png',
+                          route: '/debt',
                         ),
                         MenuCard(
                           title: 'Gasto',

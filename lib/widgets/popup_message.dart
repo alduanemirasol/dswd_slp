@@ -39,6 +39,8 @@ class PopupMessage {
 
 /*
 
+Usage example:
+
 ElevatedButton(
   onPressed: () {
     PopupMessage.show(
