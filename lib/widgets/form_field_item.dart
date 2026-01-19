@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../constants/colors.dart';
 
-class FormFieldItem extends StatelessWidget {
+class FormFieldItem extends StatefulWidget {
   final String label;
   final String hint;
   final TextEditingController? controller;
@@ -27,23 +27,42 @@ class FormFieldItem extends StatelessWidget {
   });
 
   @override
+  State<FormFieldItem> createState() => _FormFieldItemState();
+}
+
+class _FormFieldItemState extends State<FormFieldItem> {
+  late bool _obscureText;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.obscureText;
+  }
+
+  void _toggleVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
+        Text(widget.label, style: const TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(height: 6),
         TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          keyboardType: keyboardType ?? TextInputType.text,
-          maxLength: maxLength,
-          inputFormatters: inputFormatters,
-          onChanged: onChanged,
+          controller: widget.controller,
+          obscureText: _obscureText,
+          keyboardType: widget.keyboardType ?? TextInputType.text,
+          maxLength: widget.maxLength,
+          inputFormatters: widget.inputFormatters,
+          onChanged: widget.onChanged,
           decoration: InputDecoration(
-            hintText: hint,
+            hintText: widget.hint,
             hintStyle: const TextStyle(fontSize: 14),
-            errorText: errorText,
+            errorText: widget.errorText,
             errorStyle: const TextStyle(color: AppColors.error, fontSize: 12),
             filled: true,
             fillColor: Colors.white,
@@ -67,6 +86,17 @@ class FormFieldItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: AppColors.error, width: 2),
             ),
+            suffixIcon: widget.obscureText
+                ? IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                      size: 20,
+                      color: Colors.grey[700],
+                    ),
+                    onPressed: _toggleVisibility,
+                    splashRadius: 20,
+                  )
+                : null,
           ),
         ),
       ],

@@ -5,8 +5,3 @@ class FlowType {
   const FlowType({required this.id, required this.name});
   Map<String, dynamic> toMap() => {'id': id, 'name': name};
 }
-
-const List<FlowType> flowTypes = [
-  FlowType(id: 1, name: 'income'),
-  FlowType(id: 2, name: 'expense'),
-];

@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import '../data/security_questions.dart';
 import '../models/security_questions_model.dart';
 import '../repositories/account_repository.dart';
@@ -32,16 +32,26 @@ class RegisterViewModel extends ChangeNotifier {
     required String associationName,
     required String mobileNumber,
     required String pin,
+    required SecurityQuestion securityQuestion,
+    required String securityAnswer,
   }) async {
     _setLoading(true);
     _errorMessage = null;
 
     try {
-      await _accountRepository.register(
+      final account = await _accountRepository.register(
         associationName: associationName,
         mobileNumber: mobileNumber,
         pin: pin,
       );
+
+      // Save security question and answer
+      await _accountRepository.saveSecurityAnswer(
+        accountId: account.id,
+        securityQuestionId: securityQuestion.id,
+        answer: securityAnswer,
+      );
+
       return true;
     } catch (_) {
       _errorMessage = 'Unable to create account';
@@ -49,6 +59,13 @@ class RegisterViewModel extends ChangeNotifier {
     } finally {
       _setLoading(false);
     }
+  }
+
+  void clearAll() {
+    _selectedQuestion = null;
+    _errorMessage = null;
+    _isLoading = false;
+    notifyListeners();
   }
 
   void _setLoading(bool value) {

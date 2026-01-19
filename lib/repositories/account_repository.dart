@@ -62,6 +62,20 @@ class AccountRepository {
     return AccountModel.fromMap(result.first);
   }
 
+  // Save security question and answer
+  Future<void> saveSecurityAnswer({
+    required int accountId,
+    required int securityQuestionId,
+    required String answer,
+  }) async {
+    await db.insert('account_security_answers', {
+      'account_id': accountId,
+      'security_question_id': securityQuestionId,
+      'answer': answer,
+      'created_at': DateHelper.now(),
+    });
+  }
+
   // Reset PIN
   Future<bool> resetPin({
     required String mobileNumber,

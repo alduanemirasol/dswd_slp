@@ -1,5 +1,5 @@
 class AccountModel {
-  final int? id;
+  final int id;
   final String associationName;
   final String mobileNumber;
   final String pinHash;
@@ -7,7 +7,7 @@ class AccountModel {
   final DateTime updatedAt;
 
   const AccountModel({
-    this.id,
+    required this.id,
     required this.associationName,
     required this.mobileNumber,
     required this.pinHash,

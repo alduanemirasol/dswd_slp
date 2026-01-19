@@ -18,7 +18,8 @@ class _RegisterViewState extends State<RegisterView> {
   final _associationController = TextEditingController();
   final _mobileController = TextEditingController();
   final _pinController = TextEditingController();
-
+  final _confirmPinController = TextEditingController();
+  final _answerController = TextEditingController();
   final viewModel = GlobalProviders.registerViewModel;
 
   @override
@@ -39,7 +40,18 @@ class _RegisterViewState extends State<RegisterView> {
     _associationController.dispose();
     _mobileController.dispose();
     _pinController.dispose();
+    _confirmPinController.dispose();
+    _answerController.dispose();
     super.dispose();
+  }
+
+  void _clearAllFields() {
+    _associationController.clear();
+    _mobileController.clear();
+    _pinController.clear();
+    _confirmPinController.clear();
+    _answerController.clear();
+    viewModel.clearAll();
   }
 
   @override
@@ -75,7 +87,10 @@ class _RegisterViewState extends State<RegisterView> {
               const SizedBox(height: 15),
 
               // PIN Input
-              PinInputRow(controller: _pinController),
+              PinInputRow(
+                pinController: _pinController,
+                confirmPinController: _confirmPinController,
+              ),
               const SizedBox(height: 15),
 
               // Security Question Dropdown
@@ -87,13 +102,13 @@ class _RegisterViewState extends State<RegisterView> {
                   if (q != null) viewModel.selectQuestion(q);
                 },
               ),
-
               const SizedBox(height: 15),
 
               // Security answer
-              const FormFieldItem(
+              FormFieldItem(
                 label: "Tubag",
                 hint: "Isulat ang imong tubag",
+                controller: _answerController,
               ),
               const SizedBox(height: 25),
 
@@ -118,9 +133,12 @@ class _RegisterViewState extends State<RegisterView> {
                           associationName: _associationController.text.trim(),
                           mobileNumber: _mobileController.text.trim(),
                           pin: _pinController.text.trim(),
+                          securityQuestion: viewModel.selectedQuestion!,
+                          securityAnswer: _answerController.text.trim(),
                         );
 
                         if (success && context.mounted) {
+                          _clearAllFields();
                           Navigator.pop(context);
                         }
                       },

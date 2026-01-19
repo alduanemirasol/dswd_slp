@@ -5,12 +5,7 @@ class PinInputRow extends StatelessWidget {
   final TextEditingController? pinController;
   final TextEditingController? confirmPinController;
 
-  const PinInputRow({
-    this.pinController,
-    this.confirmPinController,
-    super.key,
-    required TextEditingController controller,
-  });
+  const PinInputRow({super.key, this.pinController, this.confirmPinController});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +18,7 @@ class PinInputRow extends StatelessWidget {
             obscureText: true,
             maxLength: 4,
             controller: pinController,
+            keyboardType: TextInputType.number,
           ),
         ),
         const SizedBox(width: 12),
@@ -33,6 +29,7 @@ class PinInputRow extends StatelessWidget {
             obscureText: true,
             maxLength: 4,
             controller: confirmPinController,
+            keyboardType: TextInputType.number,
           ),
         ),
       ],
