@@ -12,17 +12,17 @@ class RegisterViewModel extends ChangeNotifier {
   String? _errorMessage;
 
   List<SecurityQuestion> _questions = [];
-  late SecurityQuestion _selectedQuestion;
+  SecurityQuestion? _selectedQuestion;
 
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   List<SecurityQuestion> get questions => _questions;
-  SecurityQuestion get selectedQuestion => _selectedQuestion;
+  SecurityQuestion? get selectedQuestion => _selectedQuestion;
 
   // Load security questions and set a default
   void loadSecurityQuestions() {
     _questions = securityQuestions;
-    if (_questions.isNotEmpty) _selectedQuestion = _questions.first;
+    _selectedQuestion = null;
     notifyListeners();
   }
 
@@ -49,6 +49,9 @@ class RegisterViewModel extends ChangeNotifier {
     if (pin.trim().isEmpty) return _setError("PIN is required");
     if (confirmPin.trim().isEmpty) return _setError("Confirm PIN is required");
     if (pin != confirmPin) return _setError("PIN and Confirm PIN do not match");
+    if (_selectedQuestion == null) {
+      return _setError("Please select a security question");
+    }
     if (securityAnswer.trim().isEmpty) {
       return _setError("Security Answer is required");
     }
@@ -94,7 +97,7 @@ class RegisterViewModel extends ChangeNotifier {
 
       await _saveSecurityAnswer(
         accountId: account.id,
-        securityQuestionId: _selectedQuestion.id,
+        securityQuestionId: _selectedQuestion!.id,
         answer: securityAnswer,
       );
 
