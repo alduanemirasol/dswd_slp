@@ -42,6 +42,7 @@ class _RegisterViewState extends State<RegisterView> {
     _pinController.dispose();
     _confirmPinController.dispose();
     _answerController.dispose();
+    viewModel.clearAll();
     super.dispose();
   }
 

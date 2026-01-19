@@ -39,6 +39,16 @@ class RegisterViewModel extends ChangeNotifier {
     _errorMessage = null;
 
     try {
+      // Check for duplicate mobile number
+      final existingAccount = await _accountRepository.getAccountByMobile(
+        mobileNumber,
+      );
+      if (existingAccount != null) {
+        _errorMessage = 'Mobile number already registered';
+        return false;
+      }
+
+      // Register new account
       final account = await _accountRepository.register(
         associationName: associationName,
         mobileNumber: mobileNumber,

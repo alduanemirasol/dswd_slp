@@ -21,6 +21,19 @@ class AccountRepository {
     return result.first['mobile_number'] as String;
   }
 
+  // Check if mobile number already exists
+  Future<AccountModel?> getAccountByMobile(String mobileNumber) async {
+    final result = await db.query(
+      'accounts',
+      where: 'mobile_number = ?',
+      whereArgs: [mobileNumber],
+      limit: 1,
+    );
+
+    if (result.isEmpty) return null;
+    return AccountModel.fromMap(result.first);
+  }
+
   // Login
   Future<AccountModel?> login(String mobileNumber, String pin) async {
     final pinHash = hashValue(pin);
