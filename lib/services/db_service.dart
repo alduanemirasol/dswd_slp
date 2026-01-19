@@ -62,7 +62,7 @@ class DBService {
 
     // Expenses categories
     await db.execute('''
-        CREATE TABLE expenses_categories (
+        CREATE TABLE expense_categories (
           id INTEGER PRIMARY KEY,
           name TEXT NOT NULL
         )
@@ -129,7 +129,7 @@ class DBService {
         CREATE TABLE expenses (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           account_id INTEGER NOT NULL,
-          expenses_category_id INTEGER NOT NULL,
+          expense_category_id INTEGER NOT NULL,
           amount REAL NOT NULL,
           expense_date TEXT NOT NULL,
           description TEXT,
@@ -137,7 +137,7 @@ class DBService {
           created_at TEXT NOT NULL,
           updated_at TEXT NOT NULL,
           FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE,
-          FOREIGN KEY(expenses_category_id) REFERENCES expenses_categories(id)
+          FOREIGN KEY(expense_category_id) REFERENCES expense_categories(id)
         )
     ''');
 

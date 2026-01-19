@@ -40,7 +40,7 @@ class DBSeed {
   static Future<void> seedExpenseCategories(Database db) async {
     for (var category in expenseCategories) {
       await db.insert(
-        'expenses_categories',
+        'expense_categories',
         category.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
