@@ -11,46 +11,43 @@ class RegisterViewModel extends ChangeNotifier {
   String? _errorMessage;
 
   List<SecurityQuestion> _questions = [];
-  SecurityQuestion? _selectedQuestion;
+  late SecurityQuestion _selectedQuestion;
 
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   List<SecurityQuestion> get questions => _questions;
-  SecurityQuestion? get selectedQuestion => _selectedQuestion;
+  SecurityQuestion get selectedQuestion => _selectedQuestion;
 
+  // Load security questions and set a default
   void loadSecurityQuestions() {
     _questions = securityQuestions;
+    if (_questions.isNotEmpty) _selectedQuestion = _questions.first;
     notifyListeners();
   }
 
+  // User selects a question
   void selectQuestion(SecurityQuestion question) {
     _selectedQuestion = question;
     notifyListeners();
   }
 
+  // Validate form fields
   bool validateFields({
     required String associationName,
     required String mobileNumber,
     required String pin,
-    required SecurityQuestion? securityQuestion,
+    required String confirmPin,
     required String securityAnswer,
   }) {
     if (associationName.trim().isEmpty) {
       return _setError("Association Name is required");
     }
-
     if (mobileNumber.trim().isEmpty) {
       return _setError("Mobile Number is required");
     }
-
-    if (pin.trim().isEmpty) {
-      return _setError("PIN is required");
-    }
-
-    if (securityQuestion == null) {
-      return _setError("Security Question must be selected");
-    }
-
+    if (pin.trim().isEmpty) return _setError("PIN is required");
+    if (confirmPin.trim().isEmpty) return _setError("Confirm PIN is required");
+    if (pin != confirmPin) return _setError("PIN and Confirm PIN do not match");
     if (securityAnswer.trim().isEmpty) {
       return _setError("Security Answer is required");
     }
@@ -59,11 +56,12 @@ class RegisterViewModel extends ChangeNotifier {
     return true;
   }
 
+  // Register
   Future<bool> register({
     required String associationName,
     required String mobileNumber,
     required String pin,
-    required SecurityQuestion? securityQuestion,
+    required String confirmPin,
     required String securityAnswer,
   }) async {
     _setLoading(true);
@@ -73,7 +71,7 @@ class RegisterViewModel extends ChangeNotifier {
       associationName: associationName,
       mobileNumber: mobileNumber,
       pin: pin,
-      securityQuestion: securityQuestion,
+      confirmPin: confirmPin,
       securityAnswer: securityAnswer,
     )) {
       _setLoading(false);
@@ -81,10 +79,8 @@ class RegisterViewModel extends ChangeNotifier {
     }
 
     try {
-      if (!await _checkDuplicateMobile(mobileNumber)) {
-        _setError('Mobile number already registered');
-        return false;
-      }
+      final duplicateFree = await _checkDuplicateMobile(mobileNumber);
+      if (!duplicateFree) return _setError('Mobile number already registered');
 
       final account = await _createAccount(
         associationName: associationName,
@@ -94,47 +90,52 @@ class RegisterViewModel extends ChangeNotifier {
 
       await _saveSecurityAnswer(
         accountId: account.id,
-        securityQuestionId: securityQuestion!.id,
+        securityQuestionId: _selectedQuestion.id,
         answer: securityAnswer,
       );
 
       return true;
     } catch (_) {
-      _setError('Unable to create account');
-      return false;
+      return _setError('Unable to create account');
     } finally {
       _setLoading(false);
     }
   }
 
+  // Reset state
   void clearAll() {
-    _selectedQuestion = null;
+    if (_questions.isNotEmpty) _selectedQuestion = _questions.first;
     _clearError();
     _isLoading = false;
     notifyListeners();
   }
 
+  // Set error and notify listeners
   bool _setError(String message) {
     _errorMessage = message;
     notifyListeners();
     return false;
   }
 
+  // Clear error
   void _clearError() {
     _errorMessage = null;
     notifyListeners();
   }
 
+  // Loading state
   void _setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
   }
 
+  // Check if mobile number already exists
   Future<bool> _checkDuplicateMobile(String mobileNumber) async {
     final existing = await _accountRepository.getAccountByMobile(mobileNumber);
     return existing == null;
   }
 
+  // Create account
   Future<dynamic> _createAccount({
     required String associationName,
     required String mobileNumber,
@@ -147,6 +148,7 @@ class RegisterViewModel extends ChangeNotifier {
     );
   }
 
+  // Save security answer
   Future<void> _saveSecurityAnswer({
     required int accountId,
     required int securityQuestionId,

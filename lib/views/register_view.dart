@@ -134,7 +134,7 @@ class _RegisterViewState extends State<RegisterView> {
                           associationName: _associationController.text.trim(),
                           mobileNumber: _mobileController.text.trim(),
                           pin: _pinController.text.trim(),
-                          securityQuestion: viewModel.selectedQuestion!,
+                          confirmPin: _confirmPinController.text.trim(),
                           securityAnswer: _answerController.text.trim(),
                         );
 
