@@ -3,10 +3,14 @@ import '../constants/colors.dart';
 import '../helpers/box_shadows_helper.dart';
 
 class MobileNumberDisplay extends StatelessWidget {
-  const MobileNumberDisplay({super.key});
+  final String? mobileNumber;
+
+  const MobileNumberDisplay({super.key, this.mobileNumber});
 
   @override
   Widget build(BuildContext context) {
+    final displayNumber = mobileNumber ?? "Not set";
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
       decoration: BoxDecoration(
@@ -16,24 +20,24 @@ class MobileNumberDisplay extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: const [
-          Text(
+        children: [
+          const Text(
             "Mobile Number: ",
             style: TextStyle(fontSize: 16, color: AppColors.textPrimary),
           ),
           Flexible(
             child: Text(
-              "Not set",
+              displayNumber,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: AppColors.textPrimary,
               ),
             ),
           ),
-          SizedBox(width: 8),
-          Icon(Icons.swap_horiz, color: AppColors.textPrimary, size: 22),
+          const SizedBox(width: 8),
+          const Icon(Icons.swap_horiz, color: AppColors.textPrimary, size: 22),
         ],
       ),
     );

@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import '../repositories/account_repository.dart';
+import '../helpers/account_session_helper.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final AccountRepository _accountRepository;
+  LoginViewModel(this._accountRepository);
 
-  LoginViewModel({required AccountRepository accountRepository})
-    : _accountRepository = accountRepository;
-
-  // Current PIN input
   String _pin = '';
-
-  // Expose PIN length for UI
-  int get pinLength => _pin.length;
-
-  // Error message for login failure
+  int? _accountId;
+  String? _mobileNumber;
   String? errorMessage;
 
-  /// Add a digit to the PIN
+  int get pinLength => _pin.length;
+  int? get accountId => _accountId;
+  String? get savedMobileNumber => _mobileNumber;
+
   void addDigit(String digit) {
     if (_pin.length < 4) {
       _pin += digit;
@@ -24,7 +22,6 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  /// Remove the last digit from the PIN
   void removeDigit() {
     if (_pin.isNotEmpty) {
       _pin = _pin.substring(0, _pin.length - 1);
@@ -32,22 +29,18 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  /// Clear the PIN input
   void clearPin() {
     _pin = '';
     notifyListeners();
   }
 
-  /// Clear the error message
   void resetError() {
     errorMessage = null;
     notifyListeners();
   }
 
-  /// Attempt to login with the provided mobile number
   Future<bool> login(String mobileNumber) async {
     resetError();
-
     try {
       final account = await _accountRepository.login(mobileNumber, _pin);
       if (account == null) {
@@ -55,6 +48,11 @@ class LoginViewModel extends ChangeNotifier {
         notifyListeners();
         return false;
       }
+
+      await AccountSession.setAccountId(account.id);
+      _accountId = account.id;
+      _mobileNumber = mobileNumber;
+      notifyListeners();
       return true;
     } catch (e) {
       errorMessage = 'Login failed: ${e.toString()}';
@@ -62,6 +60,22 @@ class LoginViewModel extends ChangeNotifier {
       return false;
     } finally {
       clearPin();
+    }
+  }
+
+  Future<void> loadSavedAccount() async {
+    _accountId = await AccountSession.getAccountId();
+    if (_accountId != null) {
+      _mobileNumber = await _accountRepository.getMobileNumber(_accountId!);
+    }
+    notifyListeners();
+  }
+
+  Future<void> updateMobileNumber(String newNumber) async {
+    _mobileNumber = newNumber;
+    notifyListeners();
+    if (_accountId != null) {
+      await AccountSession.setAccountId(_accountId!);
     }
   }
 }

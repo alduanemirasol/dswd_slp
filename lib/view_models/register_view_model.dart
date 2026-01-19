@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../data/security_questions.dart';
+import '../helpers/account_session_helper.dart';
 import '../models/security_questions_model.dart';
 import '../repositories/account_repository.dart';
 
@@ -88,6 +89,9 @@ class RegisterViewModel extends ChangeNotifier {
         pin: pin,
       );
 
+      // Save account ID
+      await AccountSession.setAccountId(account.id);
+
       await _saveSecurityAnswer(
         accountId: account.id,
         securityQuestionId: _selectedQuestion.id,
@@ -136,6 +140,7 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   // Create account
+
   Future<dynamic> _createAccount({
     required String associationName,
     required String mobileNumber,
