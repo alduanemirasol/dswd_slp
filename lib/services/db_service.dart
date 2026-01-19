@@ -46,7 +46,7 @@ class DBService {
   Future<void> _createLookupTables(Database db) async {
     // Security questions
     await db.execute('''
-        CREATE TABLE security_questions (
+        CREATE TABLE security_questions ( 
           id INTEGER PRIMARY KEY,
           text TEXT NOT NULL
         )

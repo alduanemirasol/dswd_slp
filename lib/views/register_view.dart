@@ -1,13 +1,46 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_app_bar.dart';
 import '../constants/colors.dart';
+import '../providers/global_providers.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/form_field_item.dart';
 import '../widgets/pin_input_row.dart';
 import '../widgets/security_question_dropdown.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
+
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
+  final _associationController = TextEditingController();
+  final _mobileController = TextEditingController();
+  final _pinController = TextEditingController();
+
+  final viewModel = GlobalProviders.registerViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel.loadSecurityQuestions();
+    viewModel.addListener(_onViewModelChanged);
+  }
+
+  void _onViewModelChanged() {
+    if (!mounted) return;
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    viewModel.removeListener(_onViewModelChanged);
+    _associationController.dispose();
+    _mobileController.dispose();
+    _pinController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,34 +56,74 @@ class RegisterView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FormFieldItem(label: "Association Name", hint: "DSWD-SLP"),
+              // Association Name
+              FormFieldItem(
+                label: "Association Name",
+                hint: "DSWD-SLP",
+                controller: _associationController,
+              ),
               const SizedBox(height: 15),
+
+              // Mobile Number
               FormFieldItem(
                 label: "Mobile Number",
                 hint: "09XXXXXXXXX",
                 maxLength: 11,
                 keyboardType: TextInputType.number,
+                controller: _mobileController,
               ),
               const SizedBox(height: 15),
-              PinInputRow(),
+
+              // PIN Input
+              PinInputRow(controller: _pinController),
               const SizedBox(height: 15),
+
+              // Security Question Dropdown
               SecurityQuestionDropdown(
                 label: "Security Question (for PIN reset)",
-                items: const [
-                  DropdownMenuItem(value: "q1", child: Text("Question 1")),
-                  DropdownMenuItem(value: "q2", child: Text("Question 2")),
-                ],
-                onChanged: (value) {},
-              ),
-              const SizedBox(height: 15),
-              FormFieldItem(label: "Tubag", hint: "Isulat ang imong tubag"),
-              const SizedBox(height: 25),
-              CustomButton(
-                text: "Create",
-                backgroundColor: AppColors.primary,
-                onPressed: () {
-                  // Your register action
+                questions: viewModel.questions,
+                selectedQuestion: viewModel.selectedQuestion,
+                onChanged: (q) {
+                  if (q != null) viewModel.selectQuestion(q);
                 },
+              ),
+
+              const SizedBox(height: 15),
+
+              // Security answer
+              const FormFieldItem(
+                label: "Tubag",
+                hint: "Isulat ang imong tubag",
+              ),
+              const SizedBox(height: 25),
+
+              // Error message
+              if (viewModel.errorMessage != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    viewModel.errorMessage!,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+
+              // Create button
+              CustomButton(
+                text: viewModel.isLoading ? "Creating..." : "Create",
+                backgroundColor: AppColors.primary,
+                onPressed: viewModel.isLoading
+                    ? null
+                    : () async {
+                        final success = await viewModel.register(
+                          associationName: _associationController.text.trim(),
+                          mobileNumber: _mobileController.text.trim(),
+                          pin: _pinController.text.trim(),
+                        );
+
+                        if (success && context.mounted) {
+                          Navigator.pop(context);
+                        }
+                      },
               ),
             ],
           ),

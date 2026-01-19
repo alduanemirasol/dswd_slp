@@ -12,7 +12,7 @@ import 'views/settings_view.dart';
 import 'views/stock_in_view.dart';
 
 // Initial route
-const String initialRoute = '/home';
+const String initialRoute = '/login';
 
 const List<AppRoute> appRoutes = [
   AppRoute(path: '/login', page: LoginView()),

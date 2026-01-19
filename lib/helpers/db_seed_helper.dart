@@ -1,4 +1,9 @@
 import 'package:sqflite/sqflite.dart';
+import '../data/security_questions.dart';
+import '../data/product_category.dart';
+import '../data/expense_category.dart';
+import '../data/flow_type.dart';
+import '../data/sale_type.dart';
 
 class DBSeed {
   // Seed all lookup tables
@@ -11,18 +16,10 @@ class DBSeed {
 
   // Seed security questions
   static Future<void> seedSecurityQuestions(Database db) async {
-    const securityQuestions = [
-      {'id': 1, 'text': "Unsa imong unang negosyo?"},
-      {'id': 2, 'text': "Kinsay imong unang silingan?"},
-      {'id': 3, 'text': "Kinsay imong unang suod nga amigo/amiga?"},
-      {'id': 4, 'text': "Asa ka pirmi mamalit?"},
-      {'id': 5, 'text': "Unsa imong paboritong lugar?"},
-      {'id': 6, 'text': "Unsa kanunay nimo dala sa biyahe?"},
-    ];
     for (var question in securityQuestions) {
       await db.insert(
         'security_questions',
-        question,
+        question.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
@@ -30,19 +27,10 @@ class DBSeed {
 
   // Seed product categories
   static Future<void> seedProductCategories(Database db) async {
-    const categories = [
-      {'id': 1, 'text': 'Imnonon'},
-      {'id': 2, 'text': 'Alak'},
-      {'id': 3, 'text': 'Pagkaon'},
-      {'id': 4, 'text': 'Panglimpyo'},
-      {'id': 5, 'text': 'Gamit sa Panimalay'},
-      {'id': 6, 'text': 'Gamit sa Eskwelahan'},
-      {'id': 7, 'text': 'Uban Pa'},
-    ];
-    for (var category in categories) {
+    for (var category in productCategories) {
       await db.insert(
         'product_categories',
-        category,
+        category.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
@@ -50,17 +38,10 @@ class DBSeed {
 
   // Seed expense categories
   static Future<void> seedExpenseCategories(Database db) async {
-    const categories = [
-      {'id': 1, 'name': 'Pagkaon'},
-      {'id': 2, 'name': 'Tubig'},
-      {'id': 3, 'name': 'Kuryente'},
-      {'id': 4, 'name': 'Mga Bayronon'},
-      {'id': 5, 'name': 'Uban pa'},
-    ];
-    for (var category in categories) {
+    for (var category in expenseCategories) {
       await db.insert(
         'expenses_categories',
-        category,
+        category.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
@@ -68,14 +49,10 @@ class DBSeed {
 
   // Seed sale types
   static Future<void> seedSaleTypes(Database db) async {
-    const types = [
-      {'id': 1, 'name': 'Cash'},
-      {'id': 2, 'name': 'Credit'},
-    ];
-    for (var type in types) {
+    for (var type in saleTypes) {
       await db.insert(
         'sale_types',
-        type,
+        type.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
@@ -83,14 +60,10 @@ class DBSeed {
 
   // Seed flow types
   static Future<void> seedFlowTypes(Database db) async {
-    const types = [
-      {'id': 1, 'name': 'income'},
-      {'id': 2, 'name': 'expense'},
-    ];
-    for (final type in types) {
+    for (var type in flowTypes) {
       await db.insert(
         'flow_types',
-        type,
+        type.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }

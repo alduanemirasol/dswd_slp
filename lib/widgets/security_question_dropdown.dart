@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
+import '../models/security_questions_model.dart';
 
 class SecurityQuestionDropdown extends StatelessWidget {
   final String label;
-  final List<DropdownMenuItem<String>> items;
-  final Function(String?)? onChanged;
+  final List<SecurityQuestion> questions;
+  final SecurityQuestion? selectedQuestion;
+  final ValueChanged<SecurityQuestion?>? onChanged;
   final String hint;
 
   const SecurityQuestionDropdown({
-    required this.label,
-    required this.items,
+    super.key,
+    this.label = "Security Question",
+    required this.questions,
+    this.selectedQuestion,
     this.onChanged,
     this.hint = "Pili ug pangutana",
-    super.key,
   });
 
   @override
@@ -22,10 +25,14 @@ class SecurityQuestionDropdown extends StatelessWidget {
       children: [
         Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(height: 6),
-        DropdownButtonFormField<String>(
+        DropdownButtonFormField<SecurityQuestion>(
           hint: Text(hint),
-          items: items,
+          initialValue: selectedQuestion,
+          items: questions
+              .map((q) => DropdownMenuItem(value: q, child: Text(q.text)))
+              .toList(),
           onChanged: onChanged,
+          dropdownColor: Colors.white,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,

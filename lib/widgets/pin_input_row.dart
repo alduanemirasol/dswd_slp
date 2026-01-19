@@ -5,7 +5,12 @@ class PinInputRow extends StatelessWidget {
   final TextEditingController? pinController;
   final TextEditingController? confirmPinController;
 
-  const PinInputRow({this.pinController, this.confirmPinController, super.key});
+  const PinInputRow({
+    this.pinController,
+    this.confirmPinController,
+    super.key,
+    required TextEditingController controller,
+  });
 
   @override
   Widget build(BuildContext context) {
