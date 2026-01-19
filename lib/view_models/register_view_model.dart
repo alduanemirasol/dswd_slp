@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../data/security_questions.dart';
 import '../models/security_questions_model.dart';
 import '../repositories/account_repository.dart';
@@ -28,43 +28,79 @@ class RegisterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool validateFields({
+    required String associationName,
+    required String mobileNumber,
+    required String pin,
+    required SecurityQuestion? securityQuestion,
+    required String securityAnswer,
+  }) {
+    if (associationName.trim().isEmpty) {
+      return _setError("Association Name is required");
+    }
+
+    if (mobileNumber.trim().isEmpty) {
+      return _setError("Mobile Number is required");
+    }
+
+    if (pin.trim().isEmpty) {
+      return _setError("PIN is required");
+    }
+
+    if (securityQuestion == null) {
+      return _setError("Security Question must be selected");
+    }
+
+    if (securityAnswer.trim().isEmpty) {
+      return _setError("Security Answer is required");
+    }
+
+    _clearError();
+    return true;
+  }
+
   Future<bool> register({
     required String associationName,
     required String mobileNumber,
     required String pin,
-    required SecurityQuestion securityQuestion,
+    required SecurityQuestion? securityQuestion,
     required String securityAnswer,
   }) async {
     _setLoading(true);
-    _errorMessage = null;
+    _clearError();
+
+    if (!validateFields(
+      associationName: associationName,
+      mobileNumber: mobileNumber,
+      pin: pin,
+      securityQuestion: securityQuestion,
+      securityAnswer: securityAnswer,
+    )) {
+      _setLoading(false);
+      return false;
+    }
 
     try {
-      // Check for duplicate mobile number
-      final existingAccount = await _accountRepository.getAccountByMobile(
-        mobileNumber,
-      );
-      if (existingAccount != null) {
-        _errorMessage = 'Mobile number already registered';
+      if (!await _checkDuplicateMobile(mobileNumber)) {
+        _setError('Mobile number already registered');
         return false;
       }
 
-      // Register new account
-      final account = await _accountRepository.register(
+      final account = await _createAccount(
         associationName: associationName,
         mobileNumber: mobileNumber,
         pin: pin,
       );
 
-      // Save security question and answer
-      await _accountRepository.saveSecurityAnswer(
+      await _saveSecurityAnswer(
         accountId: account.id,
-        securityQuestionId: securityQuestion.id,
+        securityQuestionId: securityQuestion!.id,
         answer: securityAnswer,
       );
 
       return true;
     } catch (_) {
-      _errorMessage = 'Unable to create account';
+      _setError('Unable to create account');
       return false;
     } finally {
       _setLoading(false);
@@ -73,13 +109,53 @@ class RegisterViewModel extends ChangeNotifier {
 
   void clearAll() {
     _selectedQuestion = null;
-    _errorMessage = null;
+    _clearError();
     _isLoading = false;
+    notifyListeners();
+  }
+
+  bool _setError(String message) {
+    _errorMessage = message;
+    notifyListeners();
+    return false;
+  }
+
+  void _clearError() {
+    _errorMessage = null;
     notifyListeners();
   }
 
   void _setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
+  }
+
+  Future<bool> _checkDuplicateMobile(String mobileNumber) async {
+    final existing = await _accountRepository.getAccountByMobile(mobileNumber);
+    return existing == null;
+  }
+
+  Future<dynamic> _createAccount({
+    required String associationName,
+    required String mobileNumber,
+    required String pin,
+  }) async {
+    return await _accountRepository.register(
+      associationName: associationName,
+      mobileNumber: mobileNumber,
+      pin: pin,
+    );
+  }
+
+  Future<void> _saveSecurityAnswer({
+    required int accountId,
+    required int securityQuestionId,
+    required String answer,
+  }) async {
+    await _accountRepository.saveSecurityAnswer(
+      accountId: accountId,
+      securityQuestionId: securityQuestionId,
+      answer: answer,
+    );
   }
 }
