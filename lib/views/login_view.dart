@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../constants/colors.dart';
 import '../providers/global_providers.dart';
+import '../widgets/custom_snack_bar.dart';
 import '../widgets/login_footer.dart';
 import '../widgets/mobile_number_display.dart';
 import '../widgets/pin_indicator.dart';
@@ -55,17 +56,36 @@ class _LoginViewState extends State<LoginView>
   Future<void> _onKeyPressed(String key) async {
     viewModel.addDigit(key);
 
-    if (viewModel.pinLength == 4) {
-      final mobileNumber = viewModel.savedMobileNumber ?? "Not set";
-      final success = await viewModel.login(mobileNumber);
+    if (viewModel.pinLength != 4) return;
 
+    final mobileNumber = viewModel.savedMobileNumber ?? 'Not set';
+    final success = await viewModel.login(mobileNumber);
+
+    if (!mounted) return;
+
+    if (success) {
+      const duration = Duration(seconds: 1);
+
+      CustomSnackBar.show(
+        context,
+        message: 'Login successful',
+        backgroundColor: AppColors.success,
+        textColor: Colors.white,
+        duration: duration,
+      );
+
+      await Future.delayed(duration);
       if (!mounted) return;
 
-      if (!success) {
-        triggerShake();
-      } else {
-        GoRouter.of(context).go('/home');
-      }
+      GoRouter.of(context).go('/home', extra: 'from_login');
+    } else {
+      triggerShake();
+      CustomSnackBar.show(
+        context,
+        message: 'Invalid PIN',
+        backgroundColor: AppColors.error,
+        textColor: Colors.white,
+      );
     }
   }
 

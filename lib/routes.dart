@@ -16,7 +16,11 @@ const String initialRoute = '/login';
 
 const List<AppRoute> appRoutes = [
   AppRoute(path: '/login', page: LoginView()),
-  AppRoute(path: '/home', page: HomeView()),
+  AppRoute(
+    path: '/home',
+    page: HomeView(),
+    transition: PageTransitionType.slideLeft,
+  ),
   AppRoute(path: '/history', page: HistoryView()),
   AppRoute(path: '/settings', page: SettingsView()),
   AppRoute(
@@ -49,4 +53,23 @@ const List<AppRoute> appRoutes = [
     page: DebtView(),
     transition: PageTransitionType.slideLeft,
   ),
+
+  AppRoute(
+    path: '/home',
+    page: HomeView(),
+    transition: PageTransitionType.slideLeft,
+    resolveTransition: (extra) {
+      return extra == 'from_login'
+          ? PageTransitionType.none
+          : PageTransitionType.slideLeft;
+    },
+  ),
 ];
+
+
+/*
+
+from login view to home view (the home view must use PageTransitionType.slideLeft)
+if logged-in the home view must use PageTransitionType.none
+
+*/
