@@ -1,6 +1,6 @@
-import 'package:dswd_slp_new/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import '../widgets/cash_credit_toggle.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/product_search_bar.dart';
 import '../widgets/category_chip_list.dart';
 import '../widgets/product_card.dart';
